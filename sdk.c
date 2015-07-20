@@ -74,8 +74,6 @@ void SDK_EXAMPLE_gps_waypoint_control(void);
 int SDK_EXAMPLE_turn_motors_on(void);
 int SDK_EXAMPLE_turn_motors_off(void);
 
-unsigned char* getMotorCmmdFromUData (struct WO_DESIRED_INPUT*);
-
 
 /******** SDK in general ************
  *
@@ -656,26 +654,6 @@ int SDK_EXAMPLE_turn_motors_off(void) //hold throttle stick down and yaw stick f
 		return(0);
 	}
 }
-
-unsigned char* getMotorCmmdFromUData (struct WO_DESIRED_INPUT* desired_data) {
-
-	// testing
-	unsigned char* DMC_cmmd = (unsigned char*)malloc(4*sizeof(unsigned char));
-
-	if (desired_data->roll_angle == 1) {
-
-		DMC_cmmd[0] = 20;
-	}
-
-	if (desired_data->pitch_angle == 1) DMC_cmmd[1] = 20;
-	if (desired_data->yaw_angle == 1) DMC_cmmd[2] = 20;
-
-	return DMC_cmmd;
-
-
-
-}
-
 
 #ifdef MATLAB
 

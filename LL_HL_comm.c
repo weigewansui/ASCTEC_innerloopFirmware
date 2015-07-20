@@ -35,6 +35,7 @@
 #include "jetiTelemetry.h"
 #include "sdk_telemetry.h"
 #include "buildInfoSetup.h"
+#include "Gen_motor_cmmd.h"
 #include <string.h>
 
 unsigned short SSP_ack = 0;
@@ -55,6 +56,7 @@ unsigned short wpCtrlNavStatus = 0;
 unsigned short wpCtrlDistToWp = 0;
 
 struct WAYPOINT wpToLL;
+unsigned char* MotorCmmd;
 
 volatile unsigned char transmitBuildInfoTrigger = 0;
 
@@ -315,17 +317,15 @@ int HL2LL_write_cycle(void) //write data to low-level processor
 	} else if(WO_SDK.ctrl_mode == 0x04) {
 		/***************************************************************/
 		//desired input control mode
-		unsigned char* MotorCmmd = getMotorCmmdFromUData (&WO_DESIRED_Input);
+		MotorCmmd = getMotorCmmdFromUData(WO_DESIRED_Input);
 		LL_1khz_control_input.system_flags
 				|= SF_DIRECT_MOTOR_CONTROL_INDIVIDUAL;
 
-		for (i = 0; i < 8; i++) {
-
+		for (i = 0; i < 4; i++) {
 			LL_1khz_control_input.direct_motor_control[i]
 					= MotorCmmd[i];
 		}
 
-		//motorReverseMask is 0 as default, otherwise it will reverse
 		LL_1khz_control_input.ctrl_flags=0x00<<8;
 
 		/***************************************************************/

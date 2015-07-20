@@ -78,6 +78,7 @@ SRCARM += sdk.c
 SRCARM += sdk_telemetry.c
 SRCARM += buzzer.c
 SRCARM += lpc_aci_eeprom.c
+SRCARM += Gen_motor_cmmd.c
 ifeq ($(MATLAB),1)
 SRCARM += $(wildcard ../custom_mdl/onboard_matlab_ert_rtw/*.c)
 endif
