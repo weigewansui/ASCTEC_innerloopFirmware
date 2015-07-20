@@ -4,7 +4,8 @@
 
 #include "sdk.h"
 
-unsigned char* getMotorCmmdFromUData (struct WO_DESIRED_INPUT);
-void genMotorCmmd(void);
+unsigned char* GetMotorCmmdFromUData (struct WO_DESIRED_INPUT);
+void GenMotorCmmd(void);
+void CalMotorSpeedFromDev (unsigned char**);
 
 #endif

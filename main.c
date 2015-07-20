@@ -417,23 +417,20 @@ void ACISDK(void)
 
 
 	/******************************************self-defined desired control********************************************************/
-	aciPublishCommand(&WO_DESIRED_Input.roll_angle, VARTYPE_INT16, 0x0F00, "DESIRED roll", "Roll input (DESIRED)", "-1.57..+1.57 (0=neutral)");
-	aciPublishCommand(&WO_DESIRED_Input.pitch_angle, VARTYPE_INT16, 0x0F01, "DESIRED pitch", "Pitch input (DESIRED)", "-1.57..+1.57 (0=neutral)");
-	aciPublishCommand(&WO_DESIRED_Input.yaw_angle, VARTYPE_INT16, 0x0F02, "DESIRED yaw", "Yaw input (DESIRED)", "-1.57..+1.57 (0=neutral)");
+	aciPublishCommand(&WO_DESIRED_Input.roll_angle, VARTYPE_INT16, 0x0F00, "DESIRED roll", "Roll input (DESIRED)", "-31415..+31415 = -1.57.. +1.57 (0=neutral)");
+	aciPublishCommand(&WO_DESIRED_Input.pitch_angle, VARTYPE_INT16, 0x0F01, "DESIRED pitch", "Pitch input (DESIRED)", "-31415..+31415 = -1.57.. +1.57 (0=neutral)");
+	aciPublishCommand(&WO_DESIRED_Input.yaw_angle, VARTYPE_INT16, 0x0F02, "DESIRED yaw", "Yaw input (DESIRED)", "-31415..+31415 = -1.57.. +1.57 (0=neutral)");
 
-	aciPublishCommand(&WO_DESIRED_Input.roll_vel, VARTYPE_INT16, 0x0F03, "DESIRED roll velocity", "Roll input (DESIRED)", "-1.57..+1.57 (0=neutral)");
-	aciPublishCommand(&WO_DESIRED_Input.pitch_vel, VARTYPE_INT16, 0x0F04, "DESIRED pitch velocity", "Pitch input (DESIRED)", "-1.57..+1.57 (0=neutral)");
-	aciPublishCommand(&WO_DESIRED_Input.yaw_vel, VARTYPE_INT16, 0x0F05, "DESIRED yaw velocity", "Yaw input (DESIRED)", "-1.57..+1.57 (0=neutral)");
+	aciPublishCommand(&WO_DESIRED_Input.roll_vel, VARTYPE_INT16, 0x0F03, "DESIRED roll velocity", "Roll input (DESIRED)", "-31415..+31415 = -1.57.. +1.57 (0=neutral)");
+	aciPublishCommand(&WO_DESIRED_Input.pitch_vel, VARTYPE_INT16, 0x0F04, "DESIRED pitch velocity", "Pitch input (DESIRED)", "-31415..+31415 = -1.57.. +1.57 (0=neutral)");
+	aciPublishCommand(&WO_DESIRED_Input.yaw_vel, VARTYPE_INT16, 0x0F05, "DESIRED yaw velocity", "Yaw input (DESIRED)", "-31415..+31415 = -1.57.. +1.57 (0=neutral)");
+	
+	aciPublishCommand(&WO_DESIRED_Input.accel_z, VARTYPE_INT16, 0x0F06, "DESIRED accleration along z (body)", "accleration input", "-30000..+30000 = -3g .. +3g (0 = neutral)");
 	
 	//feed back
-	aciPublishCommand(&WO_Feedback.vicon_roll, VARTYPE_INT16, 0x0F06, "FEEDBACK roll", "Roll feedback from Vicon", "-1.57..+1.57 (0=neutral)");
-	aciPublishCommand(&WO_Feedback.vicon_pitch, VARTYPE_INT16, 0x0F07, "FEEDBACK pitch", "pitch feedback from Vicon", "-1.57..+1.57 (0=neutral)");
-	aciPublishCommand(&WO_Feedback.vicon_yaw, VARTYPE_INT16, 0x0F08, "FEEDBACK yaw", "yaw feedback from Vicon", "-1.57..+1.57 (0=neutral)");
-
-
-	// aciPublishCommand(&WO_DESIRED_Input.roll_feedback, VARTYPE_INT16, 0x0F06, "FEEDBACK roll", "Roll feedback from Vicon", "-1.57..+1.57 (0=neutral)");
-	// aciPublishCommand(&WO_DESIRED_Input.pitch_feedback, VARTYPE_INT16, 0x0F07, "FEEDBACK pitch", "pitch feedback from Vicon", "-1.57..+1.57 (0=neutral)");
-	// aciPublishCommand(&WO_DESIRED_Input.yaw_feedback, VARTYPE_INT16, 0x0F08, "FEEDBACK yaw", "yaw feedback from Vicon", "-1.57..+1.57 (0=neutral)");
+	aciPublishCommand(&WO_Feedback.vicon_roll, VARTYPE_INT16, 0x0F07, "FEEDBACK roll", "Roll feedback from Vicon", "-31415..+31415 = -1.57.. +1.57 (0=neutral)");
+	aciPublishCommand(&WO_Feedback.vicon_pitch, VARTYPE_INT16, 0x0F08, "FEEDBACK pitch", "pitch feedback from Vicon", "-31415..+31415 = -1.57.. +1.57 (0=neutral)");
+	aciPublishCommand(&WO_Feedback.vicon_yaw, VARTYPE_INT16, 0x0F09, "FEEDBACK yaw", "yaw feedback from Vicon", "-31415..+31415 = -1.57.. +1.57 (0=neutral)");
 
 
 	/************************************************end****************************************************************/
@@ -441,7 +438,7 @@ void ACISDK(void)
 	aciPublishCommand(&WO_SDK.ctrl_mode,VARTYPE_UINT8,0x0600,"ctrl_mode","Control mode setting parameter","0:DIMC, 1: DMC, 2: CRTL, 3: GPS, 4. DESIRED");
 	aciPublishCommand(&WO_SDK.ctrl_enabled,VARTYPE_UINT8,0x0601,"ctrl_enabled","Control commands are accepted/ignored by LL processor", "0x00: ignored, 0x01: accepted");
 	aciPublishCommand(&WO_SDK.disable_motor_onoff_by_stick,VARTYPE_UINT8,0x0602,"disable_motor_onoff_by_stick","Setting if motors can be turned on by using the stick input","0x00: disable, 0x01 enable");
-
+	aciPublishCommand(&WO_SDK.vicon_available, VARTYPE_UINT8, 0x0603, "Vicon status", "if vicon available, will be used as feedback", "0: not available, 1:available");
 	// Parameters
 	aciPublishParameter(&ALARM_battery_warning_voltage_high,VARTYPE_UINT16,0x0001,"battery_warning_voltage_high","First battery warning level","mV");
 	aciPublishParameter(&ALARM_battery_warning_voltage_low,VARTYPE_UINT16,0x0002,"battery_warning_voltage_low","Second battery warning level","mV");

@@ -18,6 +18,7 @@ Desired roll velocity 0x0F03
 Desired pitch velocity 0x0F04
 Desired yaw velocity 0x0F05
 
-roll angle feedback 0x0F06
-pitch angle feedback 0x0F07
-yaw angle feedback 0x0F08
+Desired Accleration in Z axis(body) 0x0F06
+roll angle feedback 0x0F07
+pitch angle feedback 0x0F08
+yaw angle feedback 0x0F09

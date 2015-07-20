@@ -41,9 +41,14 @@ struct WO_SDK_STRUCT {
 
 	unsigned char ctrl_enabled; //0x00: control commands are ignored by LL processor
 								//0x01: control commands are accepted by LL processor
+								//
+								
+	unsigned char vicon_available; // if vicon is available, use vicon as feedback,
+									// otherwise use IMU integration
 
 	unsigned char disable_motor_onoff_by_stick; // if true, "minimum thrust + full yaw" command will not start/stop motors
 };
+
 extern struct WO_SDK_STRUCT WO_SDK;
 
 //--- read sensor data -----------------------------------------------------------------------------------------------------------------------------------------------
@@ -297,14 +302,15 @@ extern struct WO_CTRL_INPUT WO_CTRL_Input;
 /******************************************/
 struct WO_DESIRED_INPUT {
 
-	unsigned char pitch_angle;
-	unsigned char roll_angle;
-	unsigned char yaw_angle;
+	short pitch_angle;
+	short roll_angle;
+	short yaw_angle;
 
-	unsigned char pitch_vel;
-	unsigned char roll_vel;
-	unsigned char yaw_vel;
+	short pitch_vel;
+	short roll_vel;
+	short yaw_vel;
 
+	short accel_z;
 	// unsigned char roll_feedback;
 	// unsigned char pitch_feedback;
 	// unsigned char yaw_feedback;
