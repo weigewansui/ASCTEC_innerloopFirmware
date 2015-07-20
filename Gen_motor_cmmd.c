@@ -10,6 +10,7 @@
 //Motor speed at the nominal hovering point
 static short motor_speed_nominal = 72;
 short motor_speed_deviation[4];
+short current_roll, current_pitch, current_yaw;
 
 unsigned char* GetMotorCmmdFromUData (struct WO_DESIRED_INPUT desired_data) {
 
@@ -56,52 +57,56 @@ unsigned char* GetMotorCmmdFromUData (struct WO_DESIRED_INPUT desired_data) {
  * 
  */
 
-void GenMotorCmmd (void) {
-	//use global variable directly
+#define KP_ROLL 1
+#define KD_ROLL 1
 
-/*
-	if(WO_DESIRED_Input.pitch_angle == 1) 
-		LL_1khz_control_input.direct_motor_control[0] = 20;
-	else LL_1khz_control_input.direct_motor_control[0] = 0;
+#define KP_PITCH 1
+#define KD_PITCH 1
 
-	if(WO_DESIRED_Input.roll_angle == 1)
-		LL_1khz_control_input.direct_motor_control[1] = 20;
-	else
-		LL_1khz_control_input.direct_motor_control[1] = 0;
+#define KP_YAW 1
+#define KD_YAW 1
 
-	if(WO_DESIRED_Input.yaw_angle == 1) 
-		LL_1khz_control_input.direct_motor_control[2] = 20;
-	else
+// calculate via m/(8*Kf*Wh)
+#define K_THRUST 1
 
-		LL_1khz_control_input.direct_motor_control[2] = 0;
+/**
+ * calculate desired motor speed command directly from global variables
+ * 
+ */
 
-	LL_1khz_control_input.direct_motor_control[3] = 0;
+void GenMotorCmmd_Linear (void) {
 
-*/
+// select feedback value from vicon and IMU integration 
+	if(WO_SDK.vicon_available) {
 
+		current_roll = WO_Feedback.vicon_roll;
+		current_pitch = WO_Feedback.vicon_pitch;
+		current_yaw = WO_Feedback.vicon_yaw;
 
+	} else {
+
+		current_roll = RO_ALL_Data.angle_roll;
+		current_pitch = RO_ALL_Data.angle_pitch;
+		current_yaw = RO_ALL_Data.angle_yaw;
+
+	}
+
+	//generate deviation from PD controller
+	motor_speed_deviation[0] = K_THRUST * WO_DESIRED_Input.accel_z;
+	motor_speed_deviation[1] = KP_ROLL * (WO_DESIRED_Input.roll_angle - current_roll) +
+								KD_ROLL * (WO_DESIRED_Input.roll_vel - RO_ALL_Data.angvel_roll);
+
+	motor_speed_deviation[2] = KP_PITCH * (WO_DESIRED_Input.pitch_angle - current_pitch) + 
+								KD_PITCH * (WO_DESIRED_Input.pitch_vel - RO_ALL_Data.angvel_pitch);
+	motor_speed_deviation[3] = KP_YAW * (WO_DESIRED_Input.yaw_angle - current_yaw) + 
+								KD_YAW * (WO_DESIRED_Input.yaw_vel - RO_ALL_Data.angvel_yaw); 
+
+	CalMotorSpeedFromDev(&motor_speed_deviation);
 
 }
 
-
-
-// RO_ALL_Data.angvel_pitch
-// RO_ALL_Data.angvel_roll
-// RO_ALL_Data.angvel_yaw
-
-// if(feedback_avaiblable) {
-// // if feedback is available, use feedback value, otherwise use integration
-
-// } else {
-
-// 	RO_ALL_Data.angle_pitch
-// 	RO_ALL_Data.angle_roll
-// 	RO_ALL_Data.angle_yaw	
-// }
-// 
-
 /**
- * Invert the matrix in order to get individual motor command from deviations of nominal points
+ * get individual motor command from deviations of nominal points
  * @param SpeedDeviation a array of deviations
  *        SpeedDeviation[0] Omega_F
  *        SpeedDeviation[1] Omega_phi

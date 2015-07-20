@@ -318,7 +318,7 @@ int HL2LL_write_cycle(void) //write data to low-level processor
 		/***************************************************************/
 		//desired input control mode
 		// MotorCmmd = getMotorCmmdFromUData(WO_DESIRED_Input);
-		GenMotorCmmd();
+		GenMotorCmmd_Linear();
 		LL_1khz_control_input.system_flags
 				|= SF_DIRECT_MOTOR_CONTROL_INDIVIDUAL;
 
