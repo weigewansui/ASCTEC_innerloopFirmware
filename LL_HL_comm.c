@@ -317,14 +317,15 @@ int HL2LL_write_cycle(void) //write data to low-level processor
 	} else if(WO_SDK.ctrl_mode == 0x04) {
 		/***************************************************************/
 		//desired input control mode
-		MotorCmmd = getMotorCmmdFromUData(WO_DESIRED_Input);
+		// MotorCmmd = getMotorCmmdFromUData(WO_DESIRED_Input);
+		genMotorCmmd();
 		LL_1khz_control_input.system_flags
 				|= SF_DIRECT_MOTOR_CONTROL_INDIVIDUAL;
 
-		for (i = 0; i < 4; i++) {
-			LL_1khz_control_input.direct_motor_control[i]
-					= MotorCmmd[i];
-		}
+		// for (i = 0; i < 4; i++) {
+		// 	LL_1khz_control_input.direct_motor_control[i]
+		// 			= MotorCmmd[i];
+		// }
 
 		LL_1khz_control_input.ctrl_flags=0x00<<8;
 
@@ -648,4 +649,3 @@ inline void SSP_rx_handler_HL(unsigned char SPI_rxdata) //rx_handler @ high-leve
 	} else
 		SPI_syncstate = 0;
 }
-
