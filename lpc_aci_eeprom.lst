@@ -1,0 +1,471 @@
+   1              		.file	"lpc_aci_eeprom.c"
+   9              	.Ltext0:
+  10              		.align	2
+  11              		.global	lpc_aci_WriteParatoFlash
+  13              	lpc_aci_WriteParatoFlash:
+  14              	.LFB5:
+  15              	.LM1:
+  16              		@ Function supports interworking.
+  17              		@ args = 0, pretend = 0, frame = 8
+  18              		@ frame_needed = 0, uses_anonymous_args = 0
+  19 0000 70402DE9 		stmfd	sp!, {r4, r5, r6, lr}
+  20              	.LCFI0:
+  21 0004 08D04DE2 		sub	sp, sp, #8
+  22              	.LCFI1:
+  23              	.LM2:
+  24 0008 0D10A0E1 		mov	r1, sp
+  25 000c FEFFFFEB 		bl	ee_erase
+  26 0010 7D5FA0E3 		mov	r5, #500
+  27 0014 48409FE5 		ldr	r4, .L11
+  28 0018 0D60A0E1 		mov	r6, sp
+  29 001c 015085E2 		add	r5, r5, #1
+  30              	.LVL0:
+  31              	.L2:
+  32              	.LM3:
+  33 0020 3C009FE5 		ldr	r0, .L11
+  34              	.LVL1:
+  35 0024 0D10A0E1 		mov	r1, sp
+  36 0028 FEFFFFEB 		bl	ee_write
+  37              	.LVL2:
+  38              	.LM4:
+  39 002c 00009DE5 		ldr	r0, [sp, #0]
+  40 0030 050050E1 		cmp	r0, r5
+  41 0034 0700000A 		beq	.L5
+  42              	.LVL3:
+  43              	.LM5:
+  44 0038 FF30D4E5 		ldrb	r3, [r4, #255]	@ zero_extendqisi2
+  45              	.LVL4:
+  46              	.LM6:
+  47 003c 000053E3 		cmp	r3, #0
+  48              	.LM7:
+  49 0040 014C84E2 		add	r4, r4, #256
+  50              	.LM8:
+  51 0044 F5FFFF0A 		beq	.L2
+  52              	.LM9:
+  53 0048 18209FE5 		ldr	r2, .L11+4
+  54 004c 003092E5 		ldr	r3, [r2, #0]
+  55              	.LVL5:
+  56 0050 0338A0E1 		mov	r3, r3, asl #16
+  57 0054 4308A0E1 		mov	r0, r3, asr #16
+  58              	.LVL6:
+  59              	.L5:
+  60              	.LM10:
+  61 0058 08D08DE2 		add	sp, sp, #8
+  62 005c 7040BDE8 		ldmfd	sp!, {r4, r5, r6, lr}
+  63 0060 1EFF2FE1 		bx	lr
+  64              	.L12:
+  65              		.align	2
+  66              	.L11:
+  67 0064 00000000 		.word	content
+  68 0068 00000000 		.word	anz_param_saved
+  69              	.LFE5:
+  71              		.align	2
+  72              		.global	lpc_aci_SavePara
+  74              	lpc_aci_SavePara:
+  75              	.LFB4:
+  76              	.LM11:
+  77              		@ Function supports interworking.
+  78              		@ args = 0, pretend = 0, frame = 0
+  79              		@ frame_needed = 0, uses_anonymous_args = 0
+  80              	.LM12:
+  81 006c 28119FE5 		ldr	r1, .L28
+  82 0070 003091E5 		ldr	r3, [r1, #0]
+  83              	.LM13:
+  84 0074 F04F2DE9 		stmfd	sp!, {r4, r5, r6, r7, r8, r9, sl, fp, lr}
+  85              	.LCFI2:
+  86              	.LM14:
+  87 0078 20919FE5 		ldr	r9, .L28+4
+  88              	.LM15:
+  89 007c 000053E3 		cmp	r3, #0
+  90              	.LM16:
+  91 0080 0000A0E3 		mov	r0, #0
+  92 0084 000089E5 		str	r0, [r9, #0]
+  93 0088 14B19FD5 		ldrle	fp, .L28+8
+  94              	.LM17:
+  95 008c 0020A0D1 		movle	r2, r0
+  96              	.LVL7:
+  97 0090 340000DA 		ble	.L16
+  98              	.LM18:
+  99 0094 0CA19FE5 		ldr	sl, .L28+12
+ 100 0098 0E30DAE5 		ldrb	r3, [sl, #14]	@ zero_extendqisi2
+ 101 009c 2331A0E1 		mov	r3, r3, lsr #2
+ 102 00a0 F90053E3 		cmp	r3, #249
+ 103 00a4 F8B09FC5 		ldrgt	fp, .L28+8
+ 104 00a8 360000CA 		bgt	.L19
+ 105 00ac F0B09FE5 		ldr	fp, .L28+8
+ 106              	.LM19:
+ 107 00b0 0060A0E1 		mov	r6, r0
+ 108              	.LVL8:
+ 109 00b4 0A80A0E1 		mov	r8, sl
+ 110 00b8 0070A0E1 		mov	r7, r0
+ 111              	.LVL9:
+ 112 00bc 030000EA 		b	.L21
+ 113              	.LVL10:
+ 114              	.L20:
+ 115              	.LM20:
+ 116 00c0 2130D3E5 		ldrb	r3, [r3, #33]	@ zero_extendqisi2
+ 117 00c4 233186E0 		add	r3, r6, r3, lsr #2
+ 118 00c8 F90053E3 		cmp	r3, #249
+ 119 00cc 2C0000CA 		bgt	.L27
+ 120              	.LVL11:
+ 121              	.L21:
+ 122              	.LM21:
+ 123 00d0 874187E0 		add	r4, r7, r7, asl #3
+ 124              	.LVL12:
+ 125 00d4 844087E0 		add	r4, r7, r4, asl #1
+ 126 00d8 0A5084E0 		add	r5, r4, sl
+ 127 00dc 0510A0E1 		mov	r1, r5
+ 128 00e0 0B0086E0 		add	r0, r6, fp
+ 129 00e4 0220A0E3 		mov	r2, #2
+ 130              	.LVL13:
+ 131              	.LM22:
+ 132 00e8 0A4084E0 		add	r4, r4, sl
+ 133              	.LM23:
+ 134 00ec FEFFFFEB 		bl	memcpy
+ 135              	.LM24:
+ 136 00f0 0E20D4E5 		ldrb	r2, [r4, #14]	@ zero_extendqisi2
+ 137              	.LM25:
+ 138 00f4 023086E2 		add	r3, r6, #2
+ 139              	.LVL14:
+ 140              	.LM26:
+ 141 00f8 0B20C3E7 		strb	r2, [r3, fp]
+ 142              	.LM27:
+ 143 00fc 0C5085E2 		add	r5, r5, #12
+ 144 0100 0430D5E5 		ldrb	r3, [r5, #4]	@ zero_extendqisi2
+ 145              	.LVL15:
+ 146 0104 0310D5E5 		ldrb	r1, [r5, #3]	@ zero_extendqisi2
+ 147 0108 0500D5E5 		ldrb	r0, [r5, #5]	@ zero_extendqisi2
+ 148 010c 031481E1 		orr	r1, r1, r3, asl #8
+ 149 0110 0E20D8E5 		ldrb	r2, [r8, #14]	@ zero_extendqisi2
+ 150 0114 06C0D5E5 		ldrb	ip, [r5, #6]	@ zero_extendqisi2
+ 151 0118 001881E1 		orr	r1, r1, r0, asl #16
+ 152              	.LM28:
+ 153 011c 034086E2 		add	r4, r6, #3
+ 154              	.LVL16:
+ 155              	.LM29:
+ 156 0120 0C1C81E1 		orr	r1, r1, ip, asl #24
+ 157 0124 2221A0E1 		mov	r2, r2, lsr #2
+ 158 0128 0B0084E0 		add	r0, r4, fp
+ 159 012c FEFFFFEB 		bl	memcpy
+ 160              	.LM30:
+ 161 0130 64109FE5 		ldr	r1, .L28
+ 162              	.LM31:
+ 163 0134 003099E5 		ldr	r3, [r9, #0]
+ 164              	.LM32:
+ 165 0138 002091E5 		ldr	r2, [r1, #0]
+ 166 013c 017087E2 		add	r7, r7, #1
+ 167              	.LM33:
+ 168 0140 0E10D8E5 		ldrb	r1, [r8, #14]	@ zero_extendqisi2
+ 169              	.LM34:
+ 170 0144 013083E2 		add	r3, r3, #1
+ 171              	.LM35:
+ 172 0148 070052E1 		cmp	r2, r7
+ 173              	.LM36:
+ 174 014c 003089E5 		str	r3, [r9, #0]
+ 175              	.LM37:
+ 176 0150 216184E0 		add	r6, r4, r1, lsr #2
+ 177              	.LM38:
+ 178 0154 0830A0E1 		mov	r3, r8
+ 179              	.LM39:
+ 180 0158 138088E2 		add	r8, r8, #19
+ 181              	.LM40:
+ 182 015c D7FFFFCA 		bgt	.L20
+ 183 0160 FF0006E2 		and	r0, r6, #255
+ 184 0164 0020A0E3 		mov	r2, #0
+ 185              	.LVL17:
+ 186              	.L16:
+ 187              	.LM41:
+ 188 0168 02348BE0 		add	r3, fp, r2, asl #8
+ 189 016c FC3083E2 		add	r3, r3, #252
+ 190              	.LM42:
+ 191 0170 0120A0E3 		mov	r2, #1
+ 192              	.LVL18:
+ 193 0174 0320C3E5 		strb	r2, [r3, #3]
+ 194              	.LM43:
+ 195 0178 0200C3E5 		strb	r0, [r3, #2]
+ 196              	.LM44:
+ 197 017c F04FBDE8 		ldmfd	sp!, {r4, r5, r6, r7, r8, r9, sl, fp, lr}
+ 198 0180 1EFF2FE1 		bx	lr
+ 199              	.L27:
+ 200              	.LM45:
+ 201 0184 FF0006E2 		and	r0, r6, #255
+ 202              	.LVL19:
+ 203              	.L19:
+ 204              	.LM46:
+ 205 0188 0030A0E3 		mov	r3, #0
+ 206 018c 0120A0E3 		mov	r2, #1
+ 207 0190 FF30CBE5 		strb	r3, [fp, #255]
+ 208              	.LM47:
+ 209 0194 FE00CBE5 		strb	r0, [fp, #254]
+ 210 0198 F2FFFFEA 		b	.L16
+ 211              	.L29:
+ 212              		.align	2
+ 213              	.L28:
+ 214 019c 00000000 		.word	aciListParCount
+ 215 01a0 00000000 		.word	anz_param_saved
+ 216 01a4 00000000 		.word	content
+ 217 01a8 00000000 		.word	aciListPar
+ 218              	.LFE4:
+ 220              		.align	2
+ 221              		.global	lpc_aci_ReadParafromFlash
+ 223              	lpc_aci_ReadParafromFlash:
+ 224              	.LFB3:
+ 225              	.LM48:
+ 226              		@ Function supports interworking.
+ 227              		@ args = 0, pretend = 0, frame = 16
+ 228              		@ frame_needed = 0, uses_anonymous_args = 0
+ 229 01ac F04F2DE9 		stmfd	sp!, {r4, r5, r6, r7, r8, r9, sl, fp, lr}
+ 230              	.LCFI3:
+ 231 01b0 10D04DE2 		sub	sp, sp, #16
+ 232              	.LCFI4:
+ 233              	.LM49:
+ 234 01b4 04108DE2 		add	r1, sp, #4
+ 235 01b8 0000A0E3 		mov	r0, #0
+ 236 01bc FEFFFFEB 		bl	ee_readn
+ 237              	.LM50:
+ 238 01c0 012CA0E3 		mov	r2, #256
+ 239 01c4 7C019FE5 		ldr	r0, .L52
+ 240              	.LVL20:
+ 241 01c8 08109DE5 		ldr	r1, [sp, #8]
+ 242 01cc FEFFFFEB 		bl	memcpy
+ 243              	.LM51:
+ 244 01d0 70219FE5 		ldr	r2, .L52
+ 245 01d4 FF00D2E5 		ldrb	r0, [r2, #255]	@ zero_extendqisi2
+ 246              	.LM52:
+ 247 01d8 010050E3 		cmp	r0, #1
+ 248 01dc 0030A093 		movls	r3, #0
+ 249 01e0 00308D95 		strls	r3, [sp, #0]
+ 250              	.LVL21:
+ 251 01e4 0270A091 		movls	r7, r2
+ 252 01e8 03B0A091 		movls	fp, r3
+ 253              	.LVL22:
+ 254 01ec 0C00009A 		bls	.L33
+ 255              	.LVL23:
+ 256              	.L34:
+ 257              	.LM53:
+ 258 01f0 10D08DE2 		add	sp, sp, #16
+ 259 01f4 F04FBDE8 		ldmfd	sp!, {r4, r5, r6, r7, r8, r9, sl, fp, lr}
+ 260 01f8 1EFF2FE1 		bx	lr
+ 261              	.LVL24:
+ 262              	.L49:
+ 263 01fc 0FE0DDE5 		ldrb	lr, [sp, #15]	@ zero_extendqisi2
+ 264              	.LVL25:
+ 265              	.L37:
+ 266              	.LM54:
+ 267 0200 FE30D7E5 		ldrb	r3, [r7, #254]	@ zero_extendqisi2
+ 268              	.LVL26:
+ 269              	.LM55:
+ 270 0204 2E5185E0 		add	r5, r5, lr, lsr #2
+ 271              	.LVL27:
+ 272              	.LM56:
+ 273 0208 050053E1 		cmp	r3, r5
+ 274 020c 0D0000CA 		bgt	.L36
+ 275              	.L45:
+ 276              	.LM57:
+ 277 0210 FF30D9E5 		ldrb	r3, [r9, #255]	@ zero_extendqisi2
+ 278 0214 000053E3 		cmp	r3, #0
+ 279              	.LM58:
+ 280 0218 017C87E2 		add	r7, r7, #256
+ 281              	.LM59:
+ 282 021c 4500001A 		bne	.L46
+ 283              	.LM60:
+ 284 0220 01B08BE2 		add	fp, fp, #1
+ 285              	.L33:
+ 286              	.LM61:
+ 287 0224 FE30D7E5 		ldrb	r3, [r7, #254]	@ zero_extendqisi2
+ 288 0228 000053E3 		cmp	r3, #0
+ 289              	.LM62:
+ 290 022c 0790A0E1 		mov	r9, r7
+ 291              	.LM63:
+ 292 0230 F6FFFFDA 		ble	.L45
+ 293 0234 0C219FE5 		ldr	r2, .L52
+ 294 0238 0C819FE5 		ldr	r8, .L52+4
+ 295              	.LM64:
+ 296 023c 0050A0E3 		mov	r5, #0
+ 297 0240 0CA08DE2 		add	sl, sp, #12
+ 298 0244 0B6482E0 		add	r6, r2, fp, asl #8
+ 299              	.L36:
+ 300              	.LM65:
+ 301 0248 051086E0 		add	r1, r6, r5
+ 302              	.LVL28:
+ 303 024c 0220A0E3 		mov	r2, #2
+ 304 0250 0A00A0E1 		mov	r0, sl
+ 305              	.LVL29:
+ 306 0254 FEFFFFEB 		bl	memcpy
+ 307              	.LVL30:
+ 308              	.LM66:
+ 309 0258 023085E2 		add	r3, r5, #2
+ 310              	.LVL31:
+ 311              	.LM67:
+ 312 025c 004098E5 		ldr	r4, [r8, #0]
+ 313              	.LM68:
+ 314 0260 0320D6E7 		ldrb	r2, [r6, r3]	@ zero_extendqisi2
+ 315              	.LM69:
+ 316 0264 000054E3 		cmp	r4, #0
+ 317              	.LM70:
+ 318 0268 0F20CDE5 		strb	r2, [sp, #15]
+ 319              	.LM71:
+ 320 026c 035085E2 		add	r5, r5, #3
+ 321              	.LVL32:
+ 322              	.LM72:
+ 323 0270 E1FFFFDA 		ble	.L49
+ 324              	.LM73:
+ 325 0274 D4C09FE5 		ldr	ip, .L52+8
+ 326 0278 0030DCE5 		ldrb	r3, [ip, #0]	@ zero_extendqisi2
+ 327              	.LVL33:
+ 328 027c 0120DCE5 		ldrb	r2, [ip, #1]	@ zero_extendqisi2
+ 329 0280 FCE0DDE1 		ldrsh	lr, [sp, #12]
+ 330 0284 023483E1 		orr	r3, r3, r2, asl #8
+ 331 0288 03005EE1 		cmp	lr, r3
+ 332 028c 0010A003 		moveq	r1, #0
+ 333              	.LVL34:
+ 334 0290 0100A001 		moveq	r0, r1
+ 335 0294 0E00000A 		beq	.L41
+ 336              	.LVL35:
+ 337              	.LM74:
+ 338 0298 0010A0E3 		mov	r1, #0
+ 339 029c 040000EA 		b	.L43
+ 340              	.LVL36:
+ 341              	.L42:
+ 342              	.LM75:
+ 343 02a0 0C30D3E7 		ldrb	r3, [r3, ip]	@ zero_extendqisi2
+ 344 02a4 0120D2E5 		ldrb	r2, [r2, #1]	@ zero_extendqisi2
+ 345 02a8 023483E1 		orr	r3, r3, r2, asl #8
+ 346 02ac 0E0053E1 		cmp	r3, lr
+ 347 02b0 0700000A 		beq	.L41
+ 348              	.L43:
+ 349              	.LM76:
+ 350 02b4 011081E2 		add	r1, r1, #1
+ 351              	.LM77:
+ 352 02b8 8101A0E1 		mov	r0, r1, asl #3
+ 353 02bc 013080E0 		add	r3, r0, r1
+ 354 02c0 833081E0 		add	r3, r1, r3, asl #1
+ 355              	.LM78:
+ 356 02c4 040051E1 		cmp	r1, r4
+ 357              	.LM79:
+ 358 02c8 0C2083E0 		add	r2, r3, ip
+ 359              	.LM80:
+ 360 02cc F3FFFF1A 		bne	.L42
+ 361 02d0 C9FFFFEA 		b	.L49
+ 362              	.LVL37:
+ 363              	.L41:
+ 364              	.LM81:
+ 365 02d4 013080E0 		add	r3, r0, r1
+ 366 02d8 833081E0 		add	r3, r1, r3, asl #1
+ 367 02dc 0C3083E0 		add	r3, r3, ip
+ 368 02e0 0E20D3E5 		ldrb	r2, [r3, #14]	@ zero_extendqisi2
+ 369 02e4 0FE0DDE5 		ldrb	lr, [sp, #15]	@ zero_extendqisi2
+ 370 02e8 02005EE1 		cmp	lr, r2
+ 371 02ec C3FFFF1A 		bne	.L37
+ 372              	.LVL38:
+ 373              	.LM82:
+ 374 02f0 0C3083E2 		add	r3, r3, #12
+ 375 02f4 0420D3E5 		ldrb	r2, [r3, #4]	@ zero_extendqisi2
+ 376 02f8 0300D3E5 		ldrb	r0, [r3, #3]	@ zero_extendqisi2
+ 377 02fc 05C0D3E5 		ldrb	ip, [r3, #5]	@ zero_extendqisi2
+ 378 0300 0610D3E5 		ldrb	r1, [r3, #6]	@ zero_extendqisi2
+ 379              	.LVL39:
+ 380 0304 020480E1 		orr	r0, r0, r2, asl #8
+ 381 0308 0C0880E1 		orr	r0, r0, ip, asl #16
+ 382 030c 2E21A0E1 		mov	r2, lr, lsr #2
+ 383 0310 010C80E1 		orr	r0, r0, r1, asl #24
+ 384 0314 051086E0 		add	r1, r6, r5
+ 385 0318 FEFFFFEB 		bl	memcpy
+ 386              	.LVL40:
+ 387              	.LM83:
+ 388 031c 00209DE5 		ldr	r2, [sp, #0]
+ 389 0320 013082E2 		add	r3, r2, #1
+ 390 0324 0338A0E1 		mov	r3, r3, asl #16
+ 391 0328 0FE0DDE5 		ldrb	lr, [sp, #15]	@ zero_extendqisi2
+ 392 032c 2338A0E1 		mov	r3, r3, lsr #16
+ 393 0330 00308DE5 		str	r3, [sp, #0]
+ 394 0334 B1FFFFEA 		b	.L37
+ 395              	.LVL41:
+ 396              	.L46:
+ 397              	.LM84:
+ 398 0338 00209DE5 		ldr	r2, [sp, #0]
+ 399 033c 0238A0E1 		mov	r3, r2, asl #16
+ 400 0340 4308A0E1 		mov	r0, r3, asr #16
+ 401 0344 A9FFFFEA 		b	.L34
+ 402              	.L53:
+ 403              		.align	2
+ 404              	.L52:
+ 405 0348 00000000 		.word	content
+ 406 034c 00000000 		.word	aciListParCount
+ 407 0350 00000000 		.word	aciListPar
+ 408              	.LFE3:
+ 410              		.align	2
+ 411              		.global	lpc_aci_init
+ 413              	lpc_aci_init:
+ 414              	.LFB2:
+ 415              	.LM85:
+ 416              		@ Function supports interworking.
+ 417              		@ args = 0, pretend = 0, frame = 0
+ 418              		@ frame_needed = 0, uses_anonymous_args = 0
+ 419 0354 04E02DE5 		str	lr, [sp, #-4]!
+ 420              	.LCFI5:
+ 421              	.LM86:
+ 422 0358 30309FE5 		ldr	r3, .L60
+ 423 035c 0010E0E3 		mvn	r1, #0
+ 424 0360 FE2083E2 		add	r2, r3, #254
+ 425              	.L55:
+ 426              	.LM87:
+ 427 0364 0110C3E4 		strb	r1, [r3], #1
+ 428 0368 020053E1 		cmp	r3, r2
+ 429 036c FCFFFF1A 		bne	.L55
+ 430              	.LM88:
+ 431 0370 1C009FE5 		ldr	r0, .L60+4
+ 432 0374 FEFFFFEB 		bl	aciSetSaveParaCallback
+ 433              	.LM89:
+ 434 0378 18009FE5 		ldr	r0, .L60+8
+ 435 037c FEFFFFEB 		bl	aciSetReadParafromFlashCallback
+ 436              	.LM90:
+ 437 0380 14009FE5 		ldr	r0, .L60+12
+ 438 0384 FEFFFFEB 		bl	aciSetWriteParatoFlashCallback
+ 439              	.LM91:
+ 440 0388 04E09DE4 		ldr	lr, [sp], #4
+ 441 038c 1EFF2FE1 		bx	lr
+ 442              	.L61:
+ 443              		.align	2
+ 444              	.L60:
+ 445 0390 00000000 		.word	content
+ 446 0394 00000000 		.word	lpc_aci_SavePara
+ 447 0398 00000000 		.word	lpc_aci_ReadParafromFlash
+ 448 039c 00000000 		.word	lpc_aci_WriteParatoFlash
+ 449              	.LFE2:
+ 451              		.global	anz_param_saved
+ 452              		.bss
+ 453              		.align	2
+ 456              	anz_param_saved:
+ 457 0000 00000000 		.space	4
+ 458              		.comm	content,256,4
+ 577              	.Letext0:
+DEFINED SYMBOLS
+                            *ABS*:00000000 lpc_aci_eeprom.c
+     /tmp/ccsIurBQ.s:10     .text:00000000 $a
+     /tmp/ccsIurBQ.s:13     .text:00000000 lpc_aci_WriteParatoFlash
+     /tmp/ccsIurBQ.s:67     .text:00000064 $d
+                            *COM*:00000100 content
+     /tmp/ccsIurBQ.s:456    .bss:00000000 anz_param_saved
+     /tmp/ccsIurBQ.s:71     .text:0000006c $a
+     /tmp/ccsIurBQ.s:74     .text:0000006c lpc_aci_SavePara
+     /tmp/ccsIurBQ.s:214    .text:0000019c $d
+     /tmp/ccsIurBQ.s:220    .text:000001ac $a
+     /tmp/ccsIurBQ.s:223    .text:000001ac lpc_aci_ReadParafromFlash
+     /tmp/ccsIurBQ.s:405    .text:00000348 $d
+     /tmp/ccsIurBQ.s:410    .text:00000354 $a
+     /tmp/ccsIurBQ.s:413    .text:00000354 lpc_aci_init
+     /tmp/ccsIurBQ.s:445    .text:00000390 $d
+     /tmp/ccsIurBQ.s:453    .bss:00000000 $d
+     /tmp/ccsIurBQ.s:472    .debug_frame:00000010 $d
+
+UNDEFINED SYMBOLS
+ee_erase
+ee_write
+memcpy
+aciListParCount
+aciListPar
+ee_readn
+aciSetSaveParaCallback
+aciSetReadParafromFlashCallback
+aciSetWriteParatoFlashCallback

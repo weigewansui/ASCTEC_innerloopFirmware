@@ -1,0 +1,1610 @@
+   1              		.file	"jetiTelemetry.c"
+   9              	.Ltext0:
+  10              		.global	jetiAlarm
+  11              		.bss
+  14              	jetiAlarm:
+  15 0000 00       		.space	1
+  16              		.global	jetiAlarmType
+  19              	jetiAlarmType:
+  20 0001 00       		.space	1
+  21              		.global	jetiTriggerTextSync
+  24              	jetiTriggerTextSync:
+  25 0002 00       		.space	1
+  26              		.global	jetiKeyChanged
+  29              	jetiKeyChanged:
+  30 0003 00       		.space	1
+  31              		.global	jetiKey
+  34              	jetiKey:
+  35 0004 00       		.space	1
+  36              		.text
+  37              		.align	2
+  38              		.global	jetiSetKeyChanged
+  40              	jetiSetKeyChanged:
+  41              	.LFB2:
+  42              	.LM1:
+  43              		@ Function supports interworking.
+  44              		@ args = 0, pretend = 0, frame = 4
+  45              		@ frame_needed = 1, uses_anonymous_args = 0
+  46 0000 0DC0A0E1 		mov	ip, sp
+  47              	.LCFI0:
+  48 0004 00D82DE9 		stmfd	sp!, {fp, ip, lr, pc}
+  49              	.LCFI1:
+  50 0008 04B04CE2 		sub	fp, ip, #4
+  51              	.LCFI2:
+  52 000c 04D04DE2 		sub	sp, sp, #4
+  53              	.LCFI3:
+  54 0010 0030A0E1 		mov	r3, r0
+  55 0014 10304BE5 		strb	r3, [fp, #-16]
+  56              	.LM2:
+  57 0018 1C209FE5 		ldr	r2, .L3
+  58 001c 10305BE5 		ldrb	r3, [fp, #-16]
+  59 0020 0030C2E5 		strb	r3, [r2, #0]
+  60              	.LM3:
+  61 0024 14209FE5 		ldr	r2, .L3+4
+  62 0028 0130A0E3 		mov	r3, #1
+  63 002c 0030C2E5 		strb	r3, [r2, #0]
+  64              	.LM4:
+  65 0030 0CD04BE2 		sub	sp, fp, #12
+  66 0034 00689DE8 		ldmfd	sp, {fp, sp, lr}
+  67 0038 1EFF2FE1 		bx	lr
+  68              	.L4:
+  69              		.align	2
+  70              	.L3:
+  71 003c 00000000 		.word	jetiKey
+  72 0040 00000000 		.word	jetiKeyChanged
+  73              	.LFE2:
+  75              		.align	2
+  76              		.global	jetiCheckForKeyChange
+  78              	jetiCheckForKeyChange:
+  79              	.LFB3:
+  80              	.LM5:
+  81              		@ Function supports interworking.
+  82              		@ args = 0, pretend = 0, frame = 4
+  83              		@ frame_needed = 1, uses_anonymous_args = 0
+  84 0044 0DC0A0E1 		mov	ip, sp
+  85              	.LCFI4:
+  86 0048 00D82DE9 		stmfd	sp!, {fp, ip, lr, pc}
+  87              	.LCFI5:
+  88 004c 04B04CE2 		sub	fp, ip, #4
+  89              	.LCFI6:
+  90 0050 04D04DE2 		sub	sp, sp, #4
+  91              	.LCFI7:
+  92              	.LM6:
+  93 0054 40309FE5 		ldr	r3, .L10
+  94 0058 0030D3E5 		ldrb	r3, [r3, #0]	@ zero_extendqisi2
+  95 005c 000053E3 		cmp	r3, #0
+  96 0060 0600000A 		beq	.L6
+  97              	.LM7:
+  98 0064 30209FE5 		ldr	r2, .L10
+  99 0068 0030A0E3 		mov	r3, #0
+ 100 006c 0030C2E5 		strb	r3, [r2, #0]
+ 101              	.LM8:
+ 102 0070 28309FE5 		ldr	r3, .L10+4
+ 103 0074 0030D3E5 		ldrb	r3, [r3, #0]	@ zero_extendqisi2
+ 104 0078 10300BE5 		str	r3, [fp, #-16]
+ 105 007c 010000EA 		b	.L8
+ 106              	.L6:
+ 107              	.LM9:
+ 108 0080 0030A0E3 		mov	r3, #0
+ 109 0084 10300BE5 		str	r3, [fp, #-16]
+ 110              	.L8:
+ 111 0088 10301BE5 		ldr	r3, [fp, #-16]
+ 112              	.LM10:
+ 113 008c 0300A0E1 		mov	r0, r3
+ 114 0090 0CD04BE2 		sub	sp, fp, #12
+ 115 0094 00689DE8 		ldmfd	sp, {fp, sp, lr}
+ 116 0098 1EFF2FE1 		bx	lr
+ 117              	.L11:
+ 118              		.align	2
+ 119              	.L10:
+ 120 009c 00000000 		.word	jetiKeyChanged
+ 121 00a0 00000000 		.word	jetiKey
+ 122              	.LFE3:
+ 124              		.align	2
+ 125              		.global	jetiSetAlarm
+ 127              	jetiSetAlarm:
+ 128              	.LFB4:
+ 129              	.LM11:
+ 130              		@ Function supports interworking.
+ 131              		@ args = 0, pretend = 0, frame = 12
+ 132              		@ frame_needed = 1, uses_anonymous_args = 0
+ 133 00a4 0DC0A0E1 		mov	ip, sp
+ 134              	.LCFI8:
+ 135 00a8 00D82DE9 		stmfd	sp!, {fp, ip, lr, pc}
+ 136              	.LCFI9:
+ 137 00ac 04B04CE2 		sub	fp, ip, #4
+ 138              	.LCFI10:
+ 139 00b0 0CD04DE2 		sub	sp, sp, #12
+ 140              	.LCFI11:
+ 141 00b4 0030A0E1 		mov	r3, r0
+ 142 00b8 14100BE5 		str	r1, [fp, #-20]
+ 143 00bc 10304BE5 		strb	r3, [fp, #-16]
+ 144              	.LM12:
+ 145 00c0 10305BE5 		ldrb	r3, [fp, #-16]	@ zero_extendqisi2
+ 146 00c4 400053E3 		cmp	r3, #64
+ 147 00c8 0200009A 		bls	.L13
+ 148 00cc 10305BE5 		ldrb	r3, [fp, #-16]	@ zero_extendqisi2
+ 149 00d0 5A0053E3 		cmp	r3, #90
+ 150 00d4 0500009A 		bls	.L15
+ 151              	.L13:
+ 152 00d8 10305BE5 		ldrb	r3, [fp, #-16]	@ zero_extendqisi2
+ 153 00dc 000053E3 		cmp	r3, #0
+ 154 00e0 0200000A 		beq	.L15
+ 155              	.LM13:
+ 156 00e4 5030A0E3 		mov	r3, #80
+ 157 00e8 18300BE5 		str	r3, [fp, #-24]
+ 158 00ec 0E0000EA 		b	.L17
+ 159              	.L15:
+ 160              	.LM14:
+ 161 00f0 14301BE5 		ldr	r3, [fp, #-20]
+ 162 00f4 010053E3 		cmp	r3, #1
+ 163 00f8 0200009A 		bls	.L18
+ 164              	.LM15:
+ 165 00fc 5130A0E3 		mov	r3, #81
+ 166 0100 18300BE5 		str	r3, [fp, #-24]
+ 167 0104 080000EA 		b	.L17
+ 168              	.L18:
+ 169              	.LM16:
+ 170 0108 30209FE5 		ldr	r2, .L21
+ 171 010c 10305BE5 		ldrb	r3, [fp, #-16]
+ 172 0110 0030C2E5 		strb	r3, [r2, #0]
+ 173              	.LM17:
+ 174 0114 14301BE5 		ldr	r3, [fp, #-20]
+ 175 0118 FF3003E2 		and	r3, r3, #255
+ 176 011c 20209FE5 		ldr	r2, .L21+4
+ 177 0120 0030C2E5 		strb	r3, [r2, #0]
+ 178              	.LM18:
+ 179 0124 0030A0E3 		mov	r3, #0
+ 180 0128 18300BE5 		str	r3, [fp, #-24]
+ 181              	.L17:
+ 182 012c 18301BE5 		ldr	r3, [fp, #-24]
+ 183              	.LM19:
+ 184 0130 0300A0E1 		mov	r0, r3
+ 185 0134 0CD04BE2 		sub	sp, fp, #12
+ 186 0138 00689DE8 		ldmfd	sp, {fp, sp, lr}
+ 187 013c 1EFF2FE1 		bx	lr
+ 188              	.L22:
+ 189              		.align	2
+ 190              	.L21:
+ 191 0140 00000000 		.word	jetiAlarm
+ 192 0144 00000000 		.word	jetiAlarmType
+ 193              	.LFE4:
+ 195              		.align	2
+ 196              		.global	jetiSetDeviceName
+ 198              	jetiSetDeviceName:
+ 199              	.LFB5:
+ 200              	.LM20:
+ 201              		@ Function supports interworking.
+ 202              		@ args = 0, pretend = 0, frame = 16
+ 203              		@ frame_needed = 1, uses_anonymous_args = 0
+ 204 0148 0DC0A0E1 		mov	ip, sp
+ 205              	.LCFI12:
+ 206 014c 00D82DE9 		stmfd	sp!, {fp, ip, lr, pc}
+ 207              	.LCFI13:
+ 208 0150 04B04CE2 		sub	fp, ip, #4
+ 209              	.LCFI14:
+ 210 0154 10D04DE2 		sub	sp, sp, #16
+ 211              	.LCFI15:
+ 212 0158 1C000BE5 		str	r0, [fp, #-28]
+ 213              	.LM21:
+ 214 015c 0030A0E3 		mov	r3, #0
+ 215 0160 15304BE5 		strb	r3, [fp, #-21]
+ 216              	.LM22:
+ 217 0164 0030A0E3 		mov	r3, #0
+ 218 0168 0D304BE5 		strb	r3, [fp, #-13]
+ 219              	.LM23:
+ 220 016c 0030A0E3 		mov	r3, #0
+ 221 0170 14300BE5 		str	r3, [fp, #-20]
+ 222 0174 090000EA 		b	.L24
+ 223              	.L25:
+ 224              	.LM24:
+ 225 0178 14301BE5 		ldr	r3, [fp, #-20]
+ 226 017c 0320A0E1 		mov	r2, r3
+ 227 0180 1C301BE5 		ldr	r3, [fp, #-28]
+ 228 0184 033082E0 		add	r3, r2, r3
+ 229 0188 0030D3E5 		ldrb	r3, [r3, #0]	@ zero_extendqisi2
+ 230 018c 000053E3 		cmp	r3, #0
+ 231 0190 0500000A 		beq	.L26
+ 232              	.LM25:
+ 233 0194 14301BE5 		ldr	r3, [fp, #-20]
+ 234 0198 013083E2 		add	r3, r3, #1
+ 235 019c 14300BE5 		str	r3, [fp, #-20]
+ 236              	.L24:
+ 237 01a0 14301BE5 		ldr	r3, [fp, #-20]
+ 238 01a4 0A0053E3 		cmp	r3, #10
+ 239 01a8 F2FFFFDA 		ble	.L25
+ 240              	.L26:
+ 241              	.LM26:
+ 242 01ac 14301BE5 		ldr	r3, [fp, #-20]
+ 243 01b0 0A0053E3 		cmp	r3, #10
+ 244 01b4 0100001A 		bne	.L28
+ 245              	.LM27:
+ 246 01b8 1330A0E3 		mov	r3, #19
+ 247 01bc 0D304BE5 		strb	r3, [fp, #-13]
+ 248              	.L28:
+ 249              	.LM28:
+ 250 01c0 14301BE5 		ldr	r3, [fp, #-20]
+ 251 01c4 15304BE5 		strb	r3, [fp, #-21]
+ 252              	.LM29:
+ 253 01c8 15105BE5 		ldrb	r1, [fp, #-21]	@ zero_extendqisi2
+ 254 01cc 28309FE5 		ldr	r3, .L31
+ 255 01d0 1C201BE5 		ldr	r2, [fp, #-28]
+ 256 01d4 01C0A0E1 		mov	ip, r1
+ 257 01d8 0300A0E1 		mov	r0, r3
+ 258 01dc 0210A0E1 		mov	r1, r2
+ 259 01e0 0C20A0E1 		mov	r2, ip
+ 260 01e4 FEFFFFEB 		bl	memcpy
+ 261              	.LM30:
+ 262 01e8 0D305BE5 		ldrb	r3, [fp, #-13]	@ zero_extendqisi2
+ 263              	.LM31:
+ 264 01ec 0300A0E1 		mov	r0, r3
+ 265 01f0 0CD04BE2 		sub	sp, fp, #12
+ 266 01f4 00689DE8 		ldmfd	sp, {fp, sp, lr}
+ 267 01f8 1EFF2FE1 		bx	lr
+ 268              	.L32:
+ 269              		.align	2
+ 270              	.L31:
+ 271 01fc 00000000 		.word	jetiName
+ 272              	.LFE5:
+ 274              		.align	2
+ 275              		.global	jetiActivateValue
+ 277              	jetiActivateValue:
+ 278              	.LFB6:
+ 279              	.LM32:
+ 280              		@ Function supports interworking.
+ 281              		@ args = 0, pretend = 0, frame = 8
+ 282              		@ frame_needed = 1, uses_anonymous_args = 0
+ 283 0200 0DC0A0E1 		mov	ip, sp
+ 284              	.LCFI16:
+ 285 0204 00D82DE9 		stmfd	sp!, {fp, ip, lr, pc}
+ 286              	.LCFI17:
+ 287 0208 04B04CE2 		sub	fp, ip, #4
+ 288              	.LCFI18:
+ 289 020c 08D04DE2 		sub	sp, sp, #8
+ 290              	.LCFI19:
+ 291 0210 0030A0E1 		mov	r3, r0
+ 292 0214 10304BE5 		strb	r3, [fp, #-16]
+ 293              	.LM33:
+ 294 0218 10305BE5 		ldrb	r3, [fp, #-16]	@ zero_extendqisi2
+ 295 021c 0E0053E3 		cmp	r3, #14
+ 296 0220 0200009A 		bls	.L34
+ 297              	.LM34:
+ 298 0224 0130A0E3 		mov	r3, #1
+ 299 0228 14300BE5 		str	r3, [fp, #-20]
+ 300 022c 0F0000EA 		b	.L36
+ 301              	.L34:
+ 302              	.LM35:
+ 303 0230 10205BE5 		ldrb	r2, [fp, #-16]	@ zero_extendqisi2
+ 304 0234 10305BE5 		ldrb	r3, [fp, #-16]
+ 305 0238 013083E2 		add	r3, r3, #1
+ 306 023c FF1003E2 		and	r1, r3, #255
+ 307 0240 3C009FE5 		ldr	r0, .L38
+ 308 0244 0230A0E1 		mov	r3, r2
+ 309 0248 0331A0E1 		mov	r3, r3, asl #2
+ 310 024c 023083E0 		add	r3, r3, r2
+ 311 0250 8330A0E1 		mov	r3, r3, asl #1
+ 312 0254 023083E0 		add	r3, r3, r2
+ 313 0258 8330A0E1 		mov	r3, r3, asl #1
+ 314 025c 002083E0 		add	r2, r3, r0
+ 315 0260 0130A0E1 		mov	r3, r1
+ 316 0264 0030C2E5 		strb	r3, [r2, #0]
+ 317              	.LM36:
+ 318 0268 0030A0E3 		mov	r3, #0
+ 319 026c 14300BE5 		str	r3, [fp, #-20]
+ 320              	.L36:
+ 321 0270 14301BE5 		ldr	r3, [fp, #-20]
+ 322              	.LM37:
+ 323 0274 0300A0E1 		mov	r0, r3
+ 324 0278 0CD04BE2 		sub	sp, fp, #12
+ 325 027c 00689DE8 		ldmfd	sp, {fp, sp, lr}
+ 326 0280 1EFF2FE1 		bx	lr
+ 327              	.L39:
+ 328              		.align	2
+ 329              	.L38:
+ 330 0284 00000000 		.word	jetiValues
+ 331              	.LFE6:
+ 333              		.align	2
+ 334              		.global	jetiDeactivateValue
+ 336              	jetiDeactivateValue:
+ 337              	.LFB7:
+ 338              	.LM38:
+ 339              		@ Function supports interworking.
+ 340              		@ args = 0, pretend = 0, frame = 8
+ 341              		@ frame_needed = 1, uses_anonymous_args = 0
+ 342 0288 0DC0A0E1 		mov	ip, sp
+ 343              	.LCFI20:
+ 344 028c 00D82DE9 		stmfd	sp!, {fp, ip, lr, pc}
+ 345              	.LCFI21:
+ 346 0290 04B04CE2 		sub	fp, ip, #4
+ 347              	.LCFI22:
+ 348 0294 08D04DE2 		sub	sp, sp, #8
+ 349              	.LCFI23:
+ 350 0298 0030A0E1 		mov	r3, r0
+ 351 029c 10304BE5 		strb	r3, [fp, #-16]
+ 352              	.LM39:
+ 353 02a0 10305BE5 		ldrb	r3, [fp, #-16]	@ zero_extendqisi2
+ 354 02a4 0E0053E3 		cmp	r3, #14
+ 355 02a8 0200009A 		bls	.L41
+ 356              	.LM40:
+ 357 02ac 0130A0E3 		mov	r3, #1
+ 358 02b0 14300BE5 		str	r3, [fp, #-20]
+ 359 02b4 0C0000EA 		b	.L43
+ 360              	.L41:
+ 361              	.LM41:
+ 362 02b8 10205BE5 		ldrb	r2, [fp, #-16]	@ zero_extendqisi2
+ 363 02bc 3C109FE5 		ldr	r1, .L45
+ 364 02c0 0230A0E1 		mov	r3, r2
+ 365 02c4 0331A0E1 		mov	r3, r3, asl #2
+ 366 02c8 023083E0 		add	r3, r3, r2
+ 367 02cc 8330A0E1 		mov	r3, r3, asl #1
+ 368 02d0 023083E0 		add	r3, r3, r2
+ 369 02d4 8330A0E1 		mov	r3, r3, asl #1
+ 370 02d8 012083E0 		add	r2, r3, r1
+ 371 02dc 0030A0E3 		mov	r3, #0
+ 372 02e0 0030C2E5 		strb	r3, [r2, #0]
+ 373              	.LM42:
+ 374 02e4 0030A0E3 		mov	r3, #0
+ 375 02e8 14300BE5 		str	r3, [fp, #-20]
+ 376              	.L43:
+ 377 02ec 14301BE5 		ldr	r3, [fp, #-20]
+ 378              	.LM43:
+ 379 02f0 0300A0E1 		mov	r0, r3
+ 380 02f4 0CD04BE2 		sub	sp, fp, #12
+ 381 02f8 00689DE8 		ldmfd	sp, {fp, sp, lr}
+ 382 02fc 1EFF2FE1 		bx	lr
+ 383              	.L46:
+ 384              		.align	2
+ 385              	.L45:
+ 386 0300 00000000 		.word	jetiValues
+ 387              	.LFE7:
+ 389              		.align	2
+ 390              		.global	jetiSetDecimalPoint
+ 392              	jetiSetDecimalPoint:
+ 393              	.LFB8:
+ 394              	.LM44:
+ 395              		@ Function supports interworking.
+ 396              		@ args = 0, pretend = 0, frame = 12
+ 397              		@ frame_needed = 1, uses_anonymous_args = 0
+ 398 0304 0DC0A0E1 		mov	ip, sp
+ 399              	.LCFI24:
+ 400 0308 00D82DE9 		stmfd	sp!, {fp, ip, lr, pc}
+ 401              	.LCFI25:
+ 402 030c 04B04CE2 		sub	fp, ip, #4
+ 403              	.LCFI26:
+ 404 0310 0CD04DE2 		sub	sp, sp, #12
+ 405              	.LCFI27:
+ 406 0314 0030A0E1 		mov	r3, r0
+ 407 0318 0120A0E1 		mov	r2, r1
+ 408 031c 10304BE5 		strb	r3, [fp, #-16]
+ 409 0320 0230A0E1 		mov	r3, r2
+ 410 0324 14304BE5 		strb	r3, [fp, #-20]
+ 411              	.LM45:
+ 412 0328 10305BE5 		ldrb	r3, [fp, #-16]	@ zero_extendqisi2
+ 413 032c 0E0053E3 		cmp	r3, #14
+ 414 0330 0200009A 		bls	.L48
+ 415              	.LM46:
+ 416 0334 0130A0E3 		mov	r3, #1
+ 417 0338 18300BE5 		str	r3, [fp, #-24]
+ 418 033c 140000EA 		b	.L50
+ 419              	.L48:
+ 420              	.LM47:
+ 421 0340 14305BE5 		ldrb	r3, [fp, #-20]	@ zero_extendqisi2
+ 422 0344 030053E3 		cmp	r3, #3
+ 423 0348 0200009A 		bls	.L51
+ 424              	.LM48:
+ 425 034c 3030A0E3 		mov	r3, #48
+ 426 0350 18300BE5 		str	r3, [fp, #-24]
+ 427 0354 0E0000EA 		b	.L50
+ 428              	.L51:
+ 429              	.LM49:
+ 430 0358 10205BE5 		ldrb	r2, [fp, #-16]	@ zero_extendqisi2
+ 431 035c 44109FE5 		ldr	r1, .L54
+ 432 0360 1100A0E3 		mov	r0, #17
+ 433 0364 0230A0E1 		mov	r3, r2
+ 434 0368 0331A0E1 		mov	r3, r3, asl #2
+ 435 036c 023083E0 		add	r3, r3, r2
+ 436 0370 8330A0E1 		mov	r3, r3, asl #1
+ 437 0374 023083E0 		add	r3, r3, r2
+ 438 0378 8330A0E1 		mov	r3, r3, asl #1
+ 439 037c 013083E0 		add	r3, r3, r1
+ 440 0380 002083E0 		add	r2, r3, r0
+ 441 0384 14305BE5 		ldrb	r3, [fp, #-20]
+ 442 0388 0030C2E5 		strb	r3, [r2, #0]
+ 443              	.LM50:
+ 444 038c 0030A0E3 		mov	r3, #0
+ 445 0390 18300BE5 		str	r3, [fp, #-24]
+ 446              	.L50:
+ 447 0394 18301BE5 		ldr	r3, [fp, #-24]
+ 448              	.LM51:
+ 449 0398 0300A0E1 		mov	r0, r3
+ 450 039c 0CD04BE2 		sub	sp, fp, #12
+ 451 03a0 00689DE8 		ldmfd	sp, {fp, sp, lr}
+ 452 03a4 1EFF2FE1 		bx	lr
+ 453              	.L55:
+ 454              		.align	2
+ 455              	.L54:
+ 456 03a8 00000000 		.word	jetiValues
+ 457              	.LFE8:
+ 459              		.align	2
+ 460              		.global	jetiSetValue30B
+ 462              	jetiSetValue30B:
+ 463              	.LFB9:
+ 464              	.LM52:
+ 465              		@ Function supports interworking.
+ 466              		@ args = 0, pretend = 0, frame = 12
+ 467              		@ frame_needed = 1, uses_anonymous_args = 0
+ 468 03ac 0DC0A0E1 		mov	ip, sp
+ 469              	.LCFI28:
+ 470 03b0 00D82DE9 		stmfd	sp!, {fp, ip, lr, pc}
+ 471              	.LCFI29:
+ 472 03b4 04B04CE2 		sub	fp, ip, #4
+ 473              	.LCFI30:
+ 474 03b8 0CD04DE2 		sub	sp, sp, #12
+ 475              	.LCFI31:
+ 476 03bc 0030A0E1 		mov	r3, r0
+ 477 03c0 14100BE5 		str	r1, [fp, #-20]
+ 478 03c4 10304BE5 		strb	r3, [fp, #-16]
+ 479              	.LM53:
+ 480 03c8 10305BE5 		ldrb	r3, [fp, #-16]	@ zero_extendqisi2
+ 481 03cc 0E0053E3 		cmp	r3, #14
+ 482 03d0 0200009A 		bls	.L57
+ 483              	.LM54:
+ 484 03d4 0130A0E3 		mov	r3, #1
+ 485 03d8 18300BE5 		str	r3, [fp, #-24]
+ 486 03dc 480000EA 		b	.L59
+ 487              	.L57:
+ 488              	.LM55:
+ 489 03e0 14301BE5 		ldr	r3, [fp, #-20]
+ 490 03e4 070173E3 		cmn	r3, #-1073741823
+ 491 03e8 020000CA 		bgt	.L60
+ 492 03ec 14301BE5 		ldr	r3, [fp, #-20]
+ 493 03f0 030153E3 		cmp	r3, #-1073741824
+ 494 03f4 020000CA 		bgt	.L62
+ 495              	.L60:
+ 496              	.LM56:
+ 497 03f8 2030A0E3 		mov	r3, #32
+ 498 03fc 18300BE5 		str	r3, [fp, #-24]
+ 499 0400 3F0000EA 		b	.L59
+ 500              	.L62:
+ 501              	.LM57:
+ 502 0404 10205BE5 		ldrb	r2, [fp, #-16]	@ zero_extendqisi2
+ 503 0408 08119FE5 		ldr	r1, .L66
+ 504 040c 1000A0E3 		mov	r0, #16
+ 505 0410 0230A0E1 		mov	r3, r2
+ 506 0414 0331A0E1 		mov	r3, r3, asl #2
+ 507 0418 023083E0 		add	r3, r3, r2
+ 508 041c 8330A0E1 		mov	r3, r3, asl #1
+ 509 0420 023083E0 		add	r3, r3, r2
+ 510 0424 8330A0E1 		mov	r3, r3, asl #1
+ 511 0428 013083E0 		add	r3, r3, r1
+ 512 042c 000083E0 		add	r0, r3, r0
+ 513 0430 14105BE5 		ldrb	r1, [fp, #-20]	@ zero_extendqisi2
+ 514 0434 0030A0E3 		mov	r3, #0
+ 515 0438 0320A0E1 		mov	r2, r3
+ 516 043c 0130A0E1 		mov	r3, r1
+ 517 0440 033082E1 		orr	r3, r2, r3
+ 518 0444 0230C0E5 		strb	r3, [r0, #2]
+ 519 0448 13105BE5 		ldrb	r1, [fp, #-19]	@ zero_extendqisi2
+ 520 044c 0030A0E3 		mov	r3, #0
+ 521 0450 0320A0E1 		mov	r2, r3
+ 522 0454 0130A0E1 		mov	r3, r1
+ 523 0458 033082E1 		orr	r3, r2, r3
+ 524 045c 0330C0E5 		strb	r3, [r0, #3]
+ 525 0460 12105BE5 		ldrb	r1, [fp, #-18]	@ zero_extendqisi2
+ 526 0464 0030A0E3 		mov	r3, #0
+ 527 0468 0320A0E1 		mov	r2, r3
+ 528 046c 0130A0E1 		mov	r3, r1
+ 529 0470 033082E1 		orr	r3, r2, r3
+ 530 0474 0430C0E5 		strb	r3, [r0, #4]
+ 531 0478 11105BE5 		ldrb	r1, [fp, #-17]	@ zero_extendqisi2
+ 532 047c 0030A0E3 		mov	r3, #0
+ 533 0480 0320A0E1 		mov	r2, r3
+ 534 0484 0130A0E1 		mov	r3, r1
+ 535 0488 033082E1 		orr	r3, r2, r3
+ 536 048c 0530C0E5 		strb	r3, [r0, #5]
+ 537              	.LM58:
+ 538 0490 10205BE5 		ldrb	r2, [fp, #-16]	@ zero_extendqisi2
+ 539 0494 7C109FE5 		ldr	r1, .L66
+ 540 0498 1000A0E3 		mov	r0, #16
+ 541 049c 0230A0E1 		mov	r3, r2
+ 542 04a0 0331A0E1 		mov	r3, r3, asl #2
+ 543 04a4 023083E0 		add	r3, r3, r2
+ 544 04a8 8330A0E1 		mov	r3, r3, asl #1
+ 545 04ac 023083E0 		add	r3, r3, r2
+ 546 04b0 8330A0E1 		mov	r3, r3, asl #1
+ 547 04b4 013083E0 		add	r3, r3, r1
+ 548 04b8 003083E0 		add	r3, r3, r0
+ 549 04bc 0030D3E5 		ldrb	r3, [r3, #0]	@ zero_extendqisi2
+ 550 04c0 480053E3 		cmp	r3, #72
+ 551 04c4 0C00000A 		beq	.L63
+ 552              	.LM59:
+ 553 04c8 10205BE5 		ldrb	r2, [fp, #-16]	@ zero_extendqisi2
+ 554 04cc 44109FE5 		ldr	r1, .L66
+ 555 04d0 1000A0E3 		mov	r0, #16
+ 556 04d4 0230A0E1 		mov	r3, r2
+ 557 04d8 0331A0E1 		mov	r3, r3, asl #2
+ 558 04dc 023083E0 		add	r3, r3, r2
+ 559 04e0 8330A0E1 		mov	r3, r3, asl #1
+ 560 04e4 023083E0 		add	r3, r3, r2
+ 561 04e8 8330A0E1 		mov	r3, r3, asl #1
+ 562 04ec 013083E0 		add	r3, r3, r1
+ 563 04f0 002083E0 		add	r2, r3, r0
+ 564 04f4 4830A0E3 		mov	r3, #72
+ 565 04f8 0030C2E5 		strb	r3, [r2, #0]
+ 566              	.L63:
+ 567              	.LM60:
+ 568 04fc 0030A0E3 		mov	r3, #0
+ 569 0500 18300BE5 		str	r3, [fp, #-24]
+ 570              	.L59:
+ 571 0504 18301BE5 		ldr	r3, [fp, #-24]
+ 572              	.LM61:
+ 573 0508 0300A0E1 		mov	r0, r3
+ 574 050c 0CD04BE2 		sub	sp, fp, #12
+ 575 0510 00689DE8 		ldmfd	sp, {fp, sp, lr}
+ 576 0514 1EFF2FE1 		bx	lr
+ 577              	.L67:
+ 578              		.align	2
+ 579              	.L66:
+ 580 0518 00000000 		.word	jetiValues
+ 581              	.LFE9:
+ 583              		.align	2
+ 584              		.global	jetiSetValue22B
+ 586              	jetiSetValue22B:
+ 587              	.LFB10:
+ 588              	.LM62:
+ 589              		@ Function supports interworking.
+ 590              		@ args = 0, pretend = 0, frame = 12
+ 591              		@ frame_needed = 1, uses_anonymous_args = 0
+ 592 051c 0DC0A0E1 		mov	ip, sp
+ 593              	.LCFI32:
+ 594 0520 00D82DE9 		stmfd	sp!, {fp, ip, lr, pc}
+ 595              	.LCFI33:
+ 596 0524 04B04CE2 		sub	fp, ip, #4
+ 597              	.LCFI34:
+ 598 0528 0CD04DE2 		sub	sp, sp, #12
+ 599              	.LCFI35:
+ 600 052c 0030A0E1 		mov	r3, r0
+ 601 0530 14100BE5 		str	r1, [fp, #-20]
+ 602 0534 10304BE5 		strb	r3, [fp, #-16]
+ 603              	.LM63:
+ 604 0538 10305BE5 		ldrb	r3, [fp, #-16]	@ zero_extendqisi2
+ 605 053c 0E0053E3 		cmp	r3, #14
+ 606 0540 0200009A 		bls	.L69
+ 607              	.LM64:
+ 608 0544 0130A0E3 		mov	r3, #1
+ 609 0548 18300BE5 		str	r3, [fp, #-24]
+ 610 054c 4A0000EA 		b	.L71
+ 611              	.L69:
+ 612              	.LM65:
+ 613 0550 14201BE5 		ldr	r2, [fp, #-20]
+ 614 0554 0235A0E3 		mov	r3, #8388608
+ 615 0558 013043E2 		sub	r3, r3, #1
+ 616 055c 030052E1 		cmp	r2, r3
+ 617 0560 020000CA 		bgt	.L72
+ 618 0564 14301BE5 		ldr	r3, [fp, #-20]
+ 619 0568 020573E3 		cmn	r3, #8388608
+ 620 056c 020000CA 		bgt	.L74
+ 621              	.L72:
+ 622              	.LM66:
+ 623 0570 2030A0E3 		mov	r3, #32
+ 624 0574 18300BE5 		str	r3, [fp, #-24]
+ 625 0578 3F0000EA 		b	.L71
+ 626              	.L74:
+ 627              	.LM67:
+ 628 057c 10205BE5 		ldrb	r2, [fp, #-16]	@ zero_extendqisi2
+ 629 0580 08119FE5 		ldr	r1, .L78
+ 630 0584 1000A0E3 		mov	r0, #16
+ 631 0588 0230A0E1 		mov	r3, r2
+ 632 058c 0331A0E1 		mov	r3, r3, asl #2
+ 633 0590 023083E0 		add	r3, r3, r2
+ 634 0594 8330A0E1 		mov	r3, r3, asl #1
+ 635 0598 023083E0 		add	r3, r3, r2
+ 636 059c 8330A0E1 		mov	r3, r3, asl #1
+ 637 05a0 013083E0 		add	r3, r3, r1
+ 638 05a4 000083E0 		add	r0, r3, r0
+ 639 05a8 14105BE5 		ldrb	r1, [fp, #-20]	@ zero_extendqisi2
+ 640 05ac 0030A0E3 		mov	r3, #0
+ 641 05b0 0320A0E1 		mov	r2, r3
+ 642 05b4 0130A0E1 		mov	r3, r1
+ 643 05b8 033082E1 		orr	r3, r2, r3
+ 644 05bc 0230C0E5 		strb	r3, [r0, #2]
+ 645 05c0 13105BE5 		ldrb	r1, [fp, #-19]	@ zero_extendqisi2
+ 646 05c4 0030A0E3 		mov	r3, #0
+ 647 05c8 0320A0E1 		mov	r2, r3
+ 648 05cc 0130A0E1 		mov	r3, r1
+ 649 05d0 033082E1 		orr	r3, r2, r3
+ 650 05d4 0330C0E5 		strb	r3, [r0, #3]
+ 651 05d8 12105BE5 		ldrb	r1, [fp, #-18]	@ zero_extendqisi2
+ 652 05dc 0030A0E3 		mov	r3, #0
+ 653 05e0 0320A0E1 		mov	r2, r3
+ 654 05e4 0130A0E1 		mov	r3, r1
+ 655 05e8 033082E1 		orr	r3, r2, r3
+ 656 05ec 0430C0E5 		strb	r3, [r0, #4]
+ 657 05f0 11105BE5 		ldrb	r1, [fp, #-17]	@ zero_extendqisi2
+ 658 05f4 0030A0E3 		mov	r3, #0
+ 659 05f8 0320A0E1 		mov	r2, r3
+ 660 05fc 0130A0E1 		mov	r3, r1
+ 661 0600 033082E1 		orr	r3, r2, r3
+ 662 0604 0530C0E5 		strb	r3, [r0, #5]
+ 663              	.LM68:
+ 664 0608 10205BE5 		ldrb	r2, [fp, #-16]	@ zero_extendqisi2
+ 665 060c 7C109FE5 		ldr	r1, .L78
+ 666 0610 1000A0E3 		mov	r0, #16
+ 667 0614 0230A0E1 		mov	r3, r2
+ 668 0618 0331A0E1 		mov	r3, r3, asl #2
+ 669 061c 023083E0 		add	r3, r3, r2
+ 670 0620 8330A0E1 		mov	r3, r3, asl #1
+ 671 0624 023083E0 		add	r3, r3, r2
+ 672 0628 8330A0E1 		mov	r3, r3, asl #1
+ 673 062c 013083E0 		add	r3, r3, r1
+ 674 0630 003083E0 		add	r3, r3, r0
+ 675 0634 0030D3E5 		ldrb	r3, [r3, #0]	@ zero_extendqisi2
+ 676 0638 340053E3 		cmp	r3, #52
+ 677 063c 0C00000A 		beq	.L75
+ 678              	.LM69:
+ 679 0640 10205BE5 		ldrb	r2, [fp, #-16]	@ zero_extendqisi2
+ 680 0644 44109FE5 		ldr	r1, .L78
+ 681 0648 1000A0E3 		mov	r0, #16
+ 682 064c 0230A0E1 		mov	r3, r2
+ 683 0650 0331A0E1 		mov	r3, r3, asl #2
+ 684 0654 023083E0 		add	r3, r3, r2
+ 685 0658 8330A0E1 		mov	r3, r3, asl #1
+ 686 065c 023083E0 		add	r3, r3, r2
+ 687 0660 8330A0E1 		mov	r3, r3, asl #1
+ 688 0664 013083E0 		add	r3, r3, r1
+ 689 0668 002083E0 		add	r2, r3, r0
+ 690 066c 3430A0E3 		mov	r3, #52
+ 691 0670 0030C2E5 		strb	r3, [r2, #0]
+ 692              	.L75:
+ 693              	.LM70:
+ 694 0674 0030A0E3 		mov	r3, #0
+ 695 0678 18300BE5 		str	r3, [fp, #-24]
+ 696              	.L71:
+ 697 067c 18301BE5 		ldr	r3, [fp, #-24]
+ 698              	.LM71:
+ 699 0680 0300A0E1 		mov	r0, r3
+ 700 0684 0CD04BE2 		sub	sp, fp, #12
+ 701 0688 00689DE8 		ldmfd	sp, {fp, sp, lr}
+ 702 068c 1EFF2FE1 		bx	lr
+ 703              	.L79:
+ 704              		.align	2
+ 705              	.L78:
+ 706 0690 00000000 		.word	jetiValues
+ 707              	.LFE10:
+ 709              		.align	2
+ 710              		.global	jetiSetValue6B
+ 712              	jetiSetValue6B:
+ 713              	.LFB11:
+ 714              	.LM72:
+ 715              		@ Function supports interworking.
+ 716              		@ args = 0, pretend = 0, frame = 12
+ 717              		@ frame_needed = 1, uses_anonymous_args = 0
+ 718 0694 0DC0A0E1 		mov	ip, sp
+ 719              	.LCFI36:
+ 720 0698 00D82DE9 		stmfd	sp!, {fp, ip, lr, pc}
+ 721              	.LCFI37:
+ 722 069c 04B04CE2 		sub	fp, ip, #4
+ 723              	.LCFI38:
+ 724 06a0 0CD04DE2 		sub	sp, sp, #12
+ 725              	.LCFI39:
+ 726 06a4 0030A0E1 		mov	r3, r0
+ 727 06a8 14100BE5 		str	r1, [fp, #-20]
+ 728 06ac 10304BE5 		strb	r3, [fp, #-16]
+ 729              	.LM73:
+ 730 06b0 10305BE5 		ldrb	r3, [fp, #-16]	@ zero_extendqisi2
+ 731 06b4 0E0053E3 		cmp	r3, #14
+ 732 06b8 0200009A 		bls	.L81
+ 733              	.LM74:
+ 734 06bc 0130A0E3 		mov	r3, #1
+ 735 06c0 18300BE5 		str	r3, [fp, #-24]
+ 736 06c4 480000EA 		b	.L83
+ 737              	.L81:
+ 738              	.LM75:
+ 739 06c8 14301BE5 		ldr	r3, [fp, #-20]
+ 740 06cc 7F0053E3 		cmp	r3, #127
+ 741 06d0 020000CA 		bgt	.L84
+ 742 06d4 14301BE5 		ldr	r3, [fp, #-20]
+ 743 06d8 800073E3 		cmn	r3, #128
+ 744 06dc 020000CA 		bgt	.L86
+ 745              	.L84:
+ 746              	.LM76:
+ 747 06e0 2030A0E3 		mov	r3, #32
+ 748 06e4 18300BE5 		str	r3, [fp, #-24]
+ 749 06e8 3F0000EA 		b	.L83
+ 750              	.L86:
+ 751              	.LM77:
+ 752 06ec 10205BE5 		ldrb	r2, [fp, #-16]	@ zero_extendqisi2
+ 753 06f0 08119FE5 		ldr	r1, .L90
+ 754 06f4 1000A0E3 		mov	r0, #16
+ 755 06f8 0230A0E1 		mov	r3, r2
+ 756 06fc 0331A0E1 		mov	r3, r3, asl #2
+ 757 0700 023083E0 		add	r3, r3, r2
+ 758 0704 8330A0E1 		mov	r3, r3, asl #1
+ 759 0708 023083E0 		add	r3, r3, r2
+ 760 070c 8330A0E1 		mov	r3, r3, asl #1
+ 761 0710 013083E0 		add	r3, r3, r1
+ 762 0714 000083E0 		add	r0, r3, r0
+ 763 0718 14105BE5 		ldrb	r1, [fp, #-20]	@ zero_extendqisi2
+ 764 071c 0030A0E3 		mov	r3, #0
+ 765 0720 0320A0E1 		mov	r2, r3
+ 766 0724 0130A0E1 		mov	r3, r1
+ 767 0728 033082E1 		orr	r3, r2, r3
+ 768 072c 0230C0E5 		strb	r3, [r0, #2]
+ 769 0730 13105BE5 		ldrb	r1, [fp, #-19]	@ zero_extendqisi2
+ 770 0734 0030A0E3 		mov	r3, #0
+ 771 0738 0320A0E1 		mov	r2, r3
+ 772 073c 0130A0E1 		mov	r3, r1
+ 773 0740 033082E1 		orr	r3, r2, r3
+ 774 0744 0330C0E5 		strb	r3, [r0, #3]
+ 775 0748 12105BE5 		ldrb	r1, [fp, #-18]	@ zero_extendqisi2
+ 776 074c 0030A0E3 		mov	r3, #0
+ 777 0750 0320A0E1 		mov	r2, r3
+ 778 0754 0130A0E1 		mov	r3, r1
+ 779 0758 033082E1 		orr	r3, r2, r3
+ 780 075c 0430C0E5 		strb	r3, [r0, #4]
+ 781 0760 11105BE5 		ldrb	r1, [fp, #-17]	@ zero_extendqisi2
+ 782 0764 0030A0E3 		mov	r3, #0
+ 783 0768 0320A0E1 		mov	r2, r3
+ 784 076c 0130A0E1 		mov	r3, r1
+ 785 0770 033082E1 		orr	r3, r2, r3
+ 786 0774 0530C0E5 		strb	r3, [r0, #5]
+ 787              	.LM78:
+ 788 0778 10205BE5 		ldrb	r2, [fp, #-16]	@ zero_extendqisi2
+ 789 077c 7C109FE5 		ldr	r1, .L90
+ 790 0780 1000A0E3 		mov	r0, #16
+ 791 0784 0230A0E1 		mov	r3, r2
+ 792 0788 0331A0E1 		mov	r3, r3, asl #2
+ 793 078c 023083E0 		add	r3, r3, r2
+ 794 0790 8330A0E1 		mov	r3, r3, asl #1
+ 795 0794 023083E0 		add	r3, r3, r2
+ 796 0798 8330A0E1 		mov	r3, r3, asl #1
+ 797 079c 013083E0 		add	r3, r3, r1
+ 798 07a0 003083E0 		add	r3, r3, r0
+ 799 07a4 0030D3E5 		ldrb	r3, [r3, #0]	@ zero_extendqisi2
+ 800 07a8 100053E3 		cmp	r3, #16
+ 801 07ac 0C00000A 		beq	.L87
+ 802              	.LM79:
+ 803 07b0 10205BE5 		ldrb	r2, [fp, #-16]	@ zero_extendqisi2
+ 804 07b4 44109FE5 		ldr	r1, .L90
+ 805 07b8 1000A0E3 		mov	r0, #16
+ 806 07bc 0230A0E1 		mov	r3, r2
+ 807 07c0 0331A0E1 		mov	r3, r3, asl #2
+ 808 07c4 023083E0 		add	r3, r3, r2
+ 809 07c8 8330A0E1 		mov	r3, r3, asl #1
+ 810 07cc 023083E0 		add	r3, r3, r2
+ 811 07d0 8330A0E1 		mov	r3, r3, asl #1
+ 812 07d4 013083E0 		add	r3, r3, r1
+ 813 07d8 002083E0 		add	r2, r3, r0
+ 814 07dc 1030A0E3 		mov	r3, #16
+ 815 07e0 0030C2E5 		strb	r3, [r2, #0]
+ 816              	.L87:
+ 817              	.LM80:
+ 818 07e4 0030A0E3 		mov	r3, #0
+ 819 07e8 18300BE5 		str	r3, [fp, #-24]
+ 820              	.L83:
+ 821 07ec 18301BE5 		ldr	r3, [fp, #-24]
+ 822              	.LM81:
+ 823 07f0 0300A0E1 		mov	r0, r3
+ 824 07f4 0CD04BE2 		sub	sp, fp, #12
+ 825 07f8 00689DE8 		ldmfd	sp, {fp, sp, lr}
+ 826 07fc 1EFF2FE1 		bx	lr
+ 827              	.L91:
+ 828              		.align	2
+ 829              	.L90:
+ 830 0800 00000000 		.word	jetiValues
+ 831              	.LFE11:
+ 833              		.align	2
+ 834              		.global	jetiSetValue14B
+ 836              	jetiSetValue14B:
+ 837              	.LFB12:
+ 838              	.LM82:
+ 839              		@ Function supports interworking.
+ 840              		@ args = 0, pretend = 0, frame = 12
+ 841              		@ frame_needed = 1, uses_anonymous_args = 0
+ 842 0804 0DC0A0E1 		mov	ip, sp
+ 843              	.LCFI40:
+ 844 0808 00D82DE9 		stmfd	sp!, {fp, ip, lr, pc}
+ 845              	.LCFI41:
+ 846 080c 04B04CE2 		sub	fp, ip, #4
+ 847              	.LCFI42:
+ 848 0810 0CD04DE2 		sub	sp, sp, #12
+ 849              	.LCFI43:
+ 850 0814 0030A0E1 		mov	r3, r0
+ 851 0818 14100BE5 		str	r1, [fp, #-20]
+ 852 081c 10304BE5 		strb	r3, [fp, #-16]
+ 853              	.LM83:
+ 854 0820 10305BE5 		ldrb	r3, [fp, #-16]	@ zero_extendqisi2
+ 855 0824 0E0053E3 		cmp	r3, #14
+ 856 0828 0200009A 		bls	.L93
+ 857              	.LM84:
+ 858 082c 0130A0E3 		mov	r3, #1
+ 859 0830 18300BE5 		str	r3, [fp, #-24]
+ 860 0834 4A0000EA 		b	.L95
+ 861              	.L93:
+ 862              	.LM85:
+ 863 0838 14201BE5 		ldr	r2, [fp, #-20]
+ 864 083c 7F3CA0E3 		mov	r3, #32512
+ 865 0840 FF3083E2 		add	r3, r3, #255
+ 866 0844 030052E1 		cmp	r2, r3
+ 867 0848 020000CA 		bgt	.L96
+ 868 084c 14301BE5 		ldr	r3, [fp, #-20]
+ 869 0850 020973E3 		cmn	r3, #32768
+ 870 0854 020000CA 		bgt	.L98
+ 871              	.L96:
+ 872              	.LM86:
+ 873 0858 2030A0E3 		mov	r3, #32
+ 874 085c 18300BE5 		str	r3, [fp, #-24]
+ 875 0860 3F0000EA 		b	.L95
+ 876              	.L98:
+ 877              	.LM87:
+ 878 0864 10205BE5 		ldrb	r2, [fp, #-16]	@ zero_extendqisi2
+ 879 0868 08119FE5 		ldr	r1, .L102
+ 880 086c 1000A0E3 		mov	r0, #16
+ 881 0870 0230A0E1 		mov	r3, r2
+ 882 0874 0331A0E1 		mov	r3, r3, asl #2
+ 883 0878 023083E0 		add	r3, r3, r2
+ 884 087c 8330A0E1 		mov	r3, r3, asl #1
+ 885 0880 023083E0 		add	r3, r3, r2
+ 886 0884 8330A0E1 		mov	r3, r3, asl #1
+ 887 0888 013083E0 		add	r3, r3, r1
+ 888 088c 000083E0 		add	r0, r3, r0
+ 889 0890 14105BE5 		ldrb	r1, [fp, #-20]	@ zero_extendqisi2
+ 890 0894 0030A0E3 		mov	r3, #0
+ 891 0898 0320A0E1 		mov	r2, r3
+ 892 089c 0130A0E1 		mov	r3, r1
+ 893 08a0 033082E1 		orr	r3, r2, r3
+ 894 08a4 0230C0E5 		strb	r3, [r0, #2]
+ 895 08a8 13105BE5 		ldrb	r1, [fp, #-19]	@ zero_extendqisi2
+ 896 08ac 0030A0E3 		mov	r3, #0
+ 897 08b0 0320A0E1 		mov	r2, r3
+ 898 08b4 0130A0E1 		mov	r3, r1
+ 899 08b8 033082E1 		orr	r3, r2, r3
+ 900 08bc 0330C0E5 		strb	r3, [r0, #3]
+ 901 08c0 12105BE5 		ldrb	r1, [fp, #-18]	@ zero_extendqisi2
+ 902 08c4 0030A0E3 		mov	r3, #0
+ 903 08c8 0320A0E1 		mov	r2, r3
+ 904 08cc 0130A0E1 		mov	r3, r1
+ 905 08d0 033082E1 		orr	r3, r2, r3
+ 906 08d4 0430C0E5 		strb	r3, [r0, #4]
+ 907 08d8 11105BE5 		ldrb	r1, [fp, #-17]	@ zero_extendqisi2
+ 908 08dc 0030A0E3 		mov	r3, #0
+ 909 08e0 0320A0E1 		mov	r2, r3
+ 910 08e4 0130A0E1 		mov	r3, r1
+ 911 08e8 033082E1 		orr	r3, r2, r3
+ 912 08ec 0530C0E5 		strb	r3, [r0, #5]
+ 913              	.LM88:
+ 914 08f0 10205BE5 		ldrb	r2, [fp, #-16]	@ zero_extendqisi2
+ 915 08f4 7C109FE5 		ldr	r1, .L102
+ 916 08f8 1000A0E3 		mov	r0, #16
+ 917 08fc 0230A0E1 		mov	r3, r2
+ 918 0900 0331A0E1 		mov	r3, r3, asl #2
+ 919 0904 023083E0 		add	r3, r3, r2
+ 920 0908 8330A0E1 		mov	r3, r3, asl #1
+ 921 090c 023083E0 		add	r3, r3, r2
+ 922 0910 8330A0E1 		mov	r3, r3, asl #1
+ 923 0914 013083E0 		add	r3, r3, r1
+ 924 0918 003083E0 		add	r3, r3, r0
+ 925 091c 0030D3E5 		ldrb	r3, [r3, #0]	@ zero_extendqisi2
+ 926 0920 210053E3 		cmp	r3, #33
+ 927 0924 0C00000A 		beq	.L99
+ 928              	.LM89:
+ 929 0928 10205BE5 		ldrb	r2, [fp, #-16]	@ zero_extendqisi2
+ 930 092c 44109FE5 		ldr	r1, .L102
+ 931 0930 1000A0E3 		mov	r0, #16
+ 932 0934 0230A0E1 		mov	r3, r2
+ 933 0938 0331A0E1 		mov	r3, r3, asl #2
+ 934 093c 023083E0 		add	r3, r3, r2
+ 935 0940 8330A0E1 		mov	r3, r3, asl #1
+ 936 0944 023083E0 		add	r3, r3, r2
+ 937 0948 8330A0E1 		mov	r3, r3, asl #1
+ 938 094c 013083E0 		add	r3, r3, r1
+ 939 0950 002083E0 		add	r2, r3, r0
+ 940 0954 2130A0E3 		mov	r3, #33
+ 941 0958 0030C2E5 		strb	r3, [r2, #0]
+ 942              	.L99:
+ 943              	.LM90:
+ 944 095c 0030A0E3 		mov	r3, #0
+ 945 0960 18300BE5 		str	r3, [fp, #-24]
+ 946              	.L95:
+ 947 0964 18301BE5 		ldr	r3, [fp, #-24]
+ 948              	.LM91:
+ 949 0968 0300A0E1 		mov	r0, r3
+ 950 096c 0CD04BE2 		sub	sp, fp, #12
+ 951 0970 00689DE8 		ldmfd	sp, {fp, sp, lr}
+ 952 0974 1EFF2FE1 		bx	lr
+ 953              	.L103:
+ 954              		.align	2
+ 955              	.L102:
+ 956 0978 00000000 		.word	jetiValues
+ 957              	.LFE12:
+ 959              		.align	2
+ 960              		.global	jetiSetValueTime
+ 962              	jetiSetValueTime:
+ 963              	.LFB13:
+ 964              	.LM92:
+ 965              		@ Function supports interworking.
+ 966              		@ args = 0, pretend = 0, frame = 24
+ 967              		@ frame_needed = 1, uses_anonymous_args = 0
+ 968 097c 0DC0A0E1 		mov	ip, sp
+ 969              	.LCFI44:
+ 970 0980 00D82DE9 		stmfd	sp!, {fp, ip, lr, pc}
+ 971              	.LCFI45:
+ 972 0984 04B04CE2 		sub	fp, ip, #4
+ 973              	.LCFI46:
+ 974 0988 18D04DE2 		sub	sp, sp, #24
+ 975              	.LCFI47:
+ 976 098c 03C0A0E1 		mov	ip, r3
+ 977 0990 0030A0E1 		mov	r3, r0
+ 978 0994 14304BE5 		strb	r3, [fp, #-20]
+ 979 0998 0130A0E1 		mov	r3, r1
+ 980 099c 18304BE5 		strb	r3, [fp, #-24]
+ 981 09a0 0230A0E1 		mov	r3, r2
+ 982 09a4 1C304BE5 		strb	r3, [fp, #-28]
+ 983 09a8 0C30A0E1 		mov	r3, ip
+ 984 09ac 20304BE5 		strb	r3, [fp, #-32]
+ 985              	.LM93:
+ 986 09b0 14305BE5 		ldrb	r3, [fp, #-20]	@ zero_extendqisi2
+ 987 09b4 0E0053E3 		cmp	r3, #14
+ 988 09b8 0200009A 		bls	.L105
+ 989              	.LM94:
+ 990 09bc 0130A0E3 		mov	r3, #1
+ 991 09c0 24300BE5 		str	r3, [fp, #-36]
+ 992 09c4 580000EA 		b	.L107
+ 993              	.L105:
+ 994              	.LM95:
+ 995 09c8 20305BE5 		ldrb	r3, [fp, #-32]	@ zero_extendqisi2
+ 996 09cc 3B0053E3 		cmp	r3, #59
+ 997 09d0 0200009A 		bls	.L108
+ 998              	.LM96:
+ 999 09d4 4630A0E3 		mov	r3, #70
+ 1000 09d8 24300BE5 		str	r3, [fp, #-36]
+ 1001 09dc 520000EA 		b	.L107
+ 1002              	.L108:
+ 1003              	.LM97:
+ 1004 09e0 1C305BE5 		ldrb	r3, [fp, #-28]	@ zero_extendqisi2
+ 1005 09e4 3B0053E3 		cmp	r3, #59
+ 1006 09e8 0200009A 		bls	.L110
+ 1007              	.LM98:
+ 1008 09ec 4530A0E3 		mov	r3, #69
+ 1009 09f0 24300BE5 		str	r3, [fp, #-36]
+ 1010 09f4 4C0000EA 		b	.L107
+ 1011              	.L110:
+ 1012              	.LM99:
+ 1013 09f8 18305BE5 		ldrb	r3, [fp, #-24]	@ zero_extendqisi2
+ 1014 09fc 170053E3 		cmp	r3, #23
+ 1015 0a00 0200009A 		bls	.L112
+ 1016              	.LM100:
+ 1017 0a04 4430A0E3 		mov	r3, #68
+ 1018 0a08 24300BE5 		str	r3, [fp, #-36]
+ 1019 0a0c 460000EA 		b	.L107
+ 1020              	.L112:
+ 1021              	.LM101:
+ 1022 0a10 20305BE5 		ldrb	r3, [fp, #-32]	@ zero_extendqisi2
+ 1023 0a14 10300BE5 		str	r3, [fp, #-16]
+ 1024              	.LM102:
+ 1025 0a18 1C305BE5 		ldrb	r3, [fp, #-28]	@ zero_extendqisi2
+ 1026 0a1c 0334A0E1 		mov	r3, r3, asl #8
+ 1027 0a20 0320A0E1 		mov	r2, r3
+ 1028 0a24 10301BE5 		ldr	r3, [fp, #-16]
+ 1029 0a28 023083E1 		orr	r3, r3, r2
+ 1030 0a2c 10300BE5 		str	r3, [fp, #-16]
+ 1031              	.LM103:
+ 1032 0a30 18305BE5 		ldrb	r3, [fp, #-24]	@ zero_extendqisi2
+ 1033 0a34 0338A0E1 		mov	r3, r3, asl #16
+ 1034 0a38 0320A0E1 		mov	r2, r3
+ 1035 0a3c 10301BE5 		ldr	r3, [fp, #-16]
+ 1036 0a40 023083E1 		orr	r3, r3, r2
+ 1037 0a44 10300BE5 		str	r3, [fp, #-16]
+ 1038              	.LM104:
+ 1039 0a48 14205BE5 		ldrb	r2, [fp, #-20]	@ zero_extendqisi2
+ 1040 0a4c 10001BE5 		ldr	r0, [fp, #-16]
+ 1041 0a50 E8109FE5 		ldr	r1, .L115
+ 1042 0a54 10C0A0E3 		mov	ip, #16
+ 1043 0a58 0230A0E1 		mov	r3, r2
+ 1044 0a5c 0331A0E1 		mov	r3, r3, asl #2
+ 1045 0a60 023083E0 		add	r3, r3, r2
+ 1046 0a64 8330A0E1 		mov	r3, r3, asl #1
+ 1047 0a68 023083E0 		add	r3, r3, r2
+ 1048 0a6c 8330A0E1 		mov	r3, r3, asl #1
+ 1049 0a70 013083E0 		add	r3, r3, r1
+ 1050 0a74 0CC083E0 		add	ip, r3, ip
+ 1051 0a78 FF1000E2 		and	r1, r0, #255
+ 1052 0a7c 0030A0E3 		mov	r3, #0
+ 1053 0a80 0320A0E1 		mov	r2, r3
+ 1054 0a84 0130A0E1 		mov	r3, r1
+ 1055 0a88 033082E1 		orr	r3, r2, r3
+ 1056 0a8c 0230CCE5 		strb	r3, [ip, #2]
+ 1057 0a90 2034A0E1 		mov	r3, r0, lsr #8
+ 1058 0a94 FF1003E2 		and	r1, r3, #255
+ 1059 0a98 0030A0E3 		mov	r3, #0
+ 1060 0a9c 0320A0E1 		mov	r2, r3
+ 1061 0aa0 0130A0E1 		mov	r3, r1
+ 1062 0aa4 033082E1 		orr	r3, r2, r3
+ 1063 0aa8 0330CCE5 		strb	r3, [ip, #3]
+ 1064 0aac 2038A0E1 		mov	r3, r0, lsr #16
+ 1065 0ab0 FF1003E2 		and	r1, r3, #255
+ 1066 0ab4 0030A0E3 		mov	r3, #0
+ 1067 0ab8 0320A0E1 		mov	r2, r3
+ 1068 0abc 0130A0E1 		mov	r3, r1
+ 1069 0ac0 033082E1 		orr	r3, r2, r3
+ 1070 0ac4 0430CCE5 		strb	r3, [ip, #4]
+ 1071 0ac8 201CA0E1 		mov	r1, r0, lsr #24
+ 1072 0acc 0030A0E3 		mov	r3, #0
+ 1073 0ad0 0320A0E1 		mov	r2, r3
+ 1074 0ad4 0130A0E1 		mov	r3, r1
+ 1075 0ad8 033082E1 		orr	r3, r2, r3
+ 1076 0adc 0530CCE5 		strb	r3, [ip, #5]
+ 1077              	.LM105:
+ 1078 0ae0 14305BE5 		ldrb	r3, [fp, #-20]	@ zero_extendqisi2
+ 1079 0ae4 0300A0E1 		mov	r0, r3
+ 1080 0ae8 0010A0E3 		mov	r1, #0
+ 1081 0aec FEFFFFEB 		bl	jetiSetDecimalPoint
+ 1082              	.LM106:
+ 1083 0af0 14205BE5 		ldrb	r2, [fp, #-20]	@ zero_extendqisi2
+ 1084 0af4 44109FE5 		ldr	r1, .L115
+ 1085 0af8 1000A0E3 		mov	r0, #16
+ 1086 0afc 0230A0E1 		mov	r3, r2
+ 1087 0b00 0331A0E1 		mov	r3, r3, asl #2
+ 1088 0b04 023083E0 		add	r3, r3, r2
+ 1089 0b08 8330A0E1 		mov	r3, r3, asl #1
+ 1090 0b0c 023083E0 		add	r3, r3, r2
+ 1091 0b10 8330A0E1 		mov	r3, r3, asl #1
+ 1092 0b14 013083E0 		add	r3, r3, r1
+ 1093 0b18 002083E0 		add	r2, r3, r0
+ 1094 0b1c 3530A0E3 		mov	r3, #53
+ 1095 0b20 0030C2E5 		strb	r3, [r2, #0]
+ 1096              	.LM107:
+ 1097 0b24 0030A0E3 		mov	r3, #0
+ 1098 0b28 24300BE5 		str	r3, [fp, #-36]
+ 1099              	.L107:
+ 1100 0b2c 24301BE5 		ldr	r3, [fp, #-36]
+ 1101              	.LM108:
+ 1102 0b30 0300A0E1 		mov	r0, r3
+ 1103 0b34 0CD04BE2 		sub	sp, fp, #12
+ 1104 0b38 00689DE8 		ldmfd	sp, {fp, sp, lr}
+ 1105 0b3c 1EFF2FE1 		bx	lr
+ 1106              	.L116:
+ 1107              		.align	2
+ 1108              	.L115:
+ 1109 0b40 00000000 		.word	jetiValues
+ 1110              	.LFE13:
+ 1112              		.align	2
+ 1113              		.global	jetiSetValueDate
+ 1115              	jetiSetValueDate:
+ 1116              	.LFB14:
+ 1117              	.LM109:
+ 1118              		@ Function supports interworking.
+ 1119              		@ args = 0, pretend = 0, frame = 24
+ 1120              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1121 0b44 0DC0A0E1 		mov	ip, sp
+ 1122              	.LCFI48:
+ 1123 0b48 00D82DE9 		stmfd	sp!, {fp, ip, lr, pc}
+ 1124              	.LCFI49:
+ 1125 0b4c 04B04CE2 		sub	fp, ip, #4
+ 1126              	.LCFI50:
+ 1127 0b50 18D04DE2 		sub	sp, sp, #24
+ 1128              	.LCFI51:
+ 1129 0b54 03C0A0E1 		mov	ip, r3
+ 1130 0b58 0030A0E1 		mov	r3, r0
+ 1131 0b5c 14304BE5 		strb	r3, [fp, #-20]
+ 1132 0b60 0130A0E1 		mov	r3, r1
+ 1133 0b64 18304BE5 		strb	r3, [fp, #-24]
+ 1134 0b68 0230A0E1 		mov	r3, r2
+ 1135 0b6c 1C304BE5 		strb	r3, [fp, #-28]
+ 1136 0b70 B0C24BE1 		strh	ip, [fp, #-32]	@ movhi
+ 1137              	.LM110:
+ 1138 0b74 14305BE5 		ldrb	r3, [fp, #-20]	@ zero_extendqisi2
+ 1139 0b78 0E0053E3 		cmp	r3, #14
+ 1140 0b7c 0200009A 		bls	.L118
+ 1141              	.LM111:
+ 1142 0b80 0130A0E3 		mov	r3, #1
+ 1143 0b84 24300BE5 		str	r3, [fp, #-36]
+ 1144 0b88 640000EA 		b	.L120
+ 1145              	.L118:
+ 1146              	.LM112:
+ 1147 0b8c B0325BE1 		ldrh	r3, [fp, #-32]
+ 1148 0b90 7D0E53E3 		cmp	r3, #2000
+ 1149 0b94 0200009A 		bls	.L121
+ 1150              	.LM113:
+ 1151 0b98 B0325BE1 		ldrh	r3, [fp, #-32]	@ movhi
+ 1152 0b9c 7D3E43E2 		sub	r3, r3, #2000
+ 1153 0ba0 B0324BE1 		strh	r3, [fp, #-32]	@ movhi
+ 1154              	.L121:
+ 1155              	.LM114:
+ 1156 0ba4 B0325BE1 		ldrh	r3, [fp, #-32]
+ 1157 0ba8 640053E3 		cmp	r3, #100
+ 1158 0bac 0200009A 		bls	.L123
+ 1159              	.LM115:
+ 1160 0bb0 4130A0E3 		mov	r3, #65
+ 1161 0bb4 24300BE5 		str	r3, [fp, #-36]
+ 1162 0bb8 580000EA 		b	.L120
+ 1163              	.L123:
+ 1164              	.LM116:
+ 1165 0bbc 1C305BE5 		ldrb	r3, [fp, #-28]	@ zero_extendqisi2
+ 1166 0bc0 000053E3 		cmp	r3, #0
+ 1167 0bc4 0200000A 		beq	.L125
+ 1168 0bc8 1C305BE5 		ldrb	r3, [fp, #-28]	@ zero_extendqisi2
+ 1169 0bcc 0C0053E3 		cmp	r3, #12
+ 1170 0bd0 0200009A 		bls	.L127
+ 1171              	.L125:
+ 1172              	.LM117:
+ 1173 0bd4 4230A0E3 		mov	r3, #66
+ 1174 0bd8 24300BE5 		str	r3, [fp, #-36]
+ 1175 0bdc 4F0000EA 		b	.L120
+ 1176              	.L127:
+ 1177              	.LM118:
+ 1178 0be0 18305BE5 		ldrb	r3, [fp, #-24]	@ zero_extendqisi2
+ 1179 0be4 000053E3 		cmp	r3, #0
+ 1180 0be8 0200000A 		beq	.L128
+ 1181 0bec 18305BE5 		ldrb	r3, [fp, #-24]	@ zero_extendqisi2
+ 1182 0bf0 1F0053E3 		cmp	r3, #31
+ 1183 0bf4 0200009A 		bls	.L130
+ 1184              	.L128:
+ 1185              	.LM119:
+ 1186 0bf8 4330A0E3 		mov	r3, #67
+ 1187 0bfc 24300BE5 		str	r3, [fp, #-36]
+ 1188 0c00 460000EA 		b	.L120
+ 1189              	.L130:
+ 1190              	.LM120:
+ 1191 0c04 B0325BE1 		ldrh	r3, [fp, #-32]
+ 1192 0c08 10300BE5 		str	r3, [fp, #-16]
+ 1193              	.LM121:
+ 1194 0c0c 1C305BE5 		ldrb	r3, [fp, #-28]	@ zero_extendqisi2
+ 1195 0c10 0334A0E1 		mov	r3, r3, asl #8
+ 1196 0c14 0320A0E1 		mov	r2, r3
+ 1197 0c18 10301BE5 		ldr	r3, [fp, #-16]
+ 1198 0c1c 023083E1 		orr	r3, r3, r2
+ 1199 0c20 10300BE5 		str	r3, [fp, #-16]
+ 1200              	.LM122:
+ 1201 0c24 18305BE5 		ldrb	r3, [fp, #-24]	@ zero_extendqisi2
+ 1202 0c28 0338A0E1 		mov	r3, r3, asl #16
+ 1203 0c2c 0320A0E1 		mov	r2, r3
+ 1204 0c30 10301BE5 		ldr	r3, [fp, #-16]
+ 1205 0c34 023083E1 		orr	r3, r3, r2
+ 1206 0c38 10300BE5 		str	r3, [fp, #-16]
+ 1207              	.LM123:
+ 1208 0c3c 14205BE5 		ldrb	r2, [fp, #-20]	@ zero_extendqisi2
+ 1209 0c40 10001BE5 		ldr	r0, [fp, #-16]
+ 1210 0c44 E8109FE5 		ldr	r1, .L132
+ 1211 0c48 10C0A0E3 		mov	ip, #16
+ 1212 0c4c 0230A0E1 		mov	r3, r2
+ 1213 0c50 0331A0E1 		mov	r3, r3, asl #2
+ 1214 0c54 023083E0 		add	r3, r3, r2
+ 1215 0c58 8330A0E1 		mov	r3, r3, asl #1
+ 1216 0c5c 023083E0 		add	r3, r3, r2
+ 1217 0c60 8330A0E1 		mov	r3, r3, asl #1
+ 1218 0c64 013083E0 		add	r3, r3, r1
+ 1219 0c68 0CC083E0 		add	ip, r3, ip
+ 1220 0c6c FF1000E2 		and	r1, r0, #255
+ 1221 0c70 0030A0E3 		mov	r3, #0
+ 1222 0c74 0320A0E1 		mov	r2, r3
+ 1223 0c78 0130A0E1 		mov	r3, r1
+ 1224 0c7c 033082E1 		orr	r3, r2, r3
+ 1225 0c80 0230CCE5 		strb	r3, [ip, #2]
+ 1226 0c84 2034A0E1 		mov	r3, r0, lsr #8
+ 1227 0c88 FF1003E2 		and	r1, r3, #255
+ 1228 0c8c 0030A0E3 		mov	r3, #0
+ 1229 0c90 0320A0E1 		mov	r2, r3
+ 1230 0c94 0130A0E1 		mov	r3, r1
+ 1231 0c98 033082E1 		orr	r3, r2, r3
+ 1232 0c9c 0330CCE5 		strb	r3, [ip, #3]
+ 1233 0ca0 2038A0E1 		mov	r3, r0, lsr #16
+ 1234 0ca4 FF1003E2 		and	r1, r3, #255
+ 1235 0ca8 0030A0E3 		mov	r3, #0
+ 1236 0cac 0320A0E1 		mov	r2, r3
+ 1237 0cb0 0130A0E1 		mov	r3, r1
+ 1238 0cb4 033082E1 		orr	r3, r2, r3
+ 1239 0cb8 0430CCE5 		strb	r3, [ip, #4]
+ 1240 0cbc 201CA0E1 		mov	r1, r0, lsr #24
+ 1241 0cc0 0030A0E3 		mov	r3, #0
+ 1242 0cc4 0320A0E1 		mov	r2, r3
+ 1243 0cc8 0130A0E1 		mov	r3, r1
+ 1244 0ccc 033082E1 		orr	r3, r2, r3
+ 1245 0cd0 0530CCE5 		strb	r3, [ip, #5]
+ 1246              	.LM124:
+ 1247 0cd4 14305BE5 		ldrb	r3, [fp, #-20]	@ zero_extendqisi2
+ 1248 0cd8 0300A0E1 		mov	r0, r3
+ 1249 0cdc 0110A0E3 		mov	r1, #1
+ 1250 0ce0 FEFFFFEB 		bl	jetiSetDecimalPoint
+ 1251              	.LM125:
+ 1252 0ce4 14205BE5 		ldrb	r2, [fp, #-20]	@ zero_extendqisi2
+ 1253 0ce8 44109FE5 		ldr	r1, .L132
+ 1254 0cec 1000A0E3 		mov	r0, #16
+ 1255 0cf0 0230A0E1 		mov	r3, r2
+ 1256 0cf4 0331A0E1 		mov	r3, r3, asl #2
+ 1257 0cf8 023083E0 		add	r3, r3, r2
+ 1258 0cfc 8330A0E1 		mov	r3, r3, asl #1
+ 1259 0d00 023083E0 		add	r3, r3, r2
+ 1260 0d04 8330A0E1 		mov	r3, r3, asl #1
+ 1261 0d08 013083E0 		add	r3, r3, r1
+ 1262 0d0c 002083E0 		add	r2, r3, r0
+ 1263 0d10 3530A0E3 		mov	r3, #53
+ 1264 0d14 0030C2E5 		strb	r3, [r2, #0]
+ 1265              	.LM126:
+ 1266 0d18 0030A0E3 		mov	r3, #0
+ 1267 0d1c 24300BE5 		str	r3, [fp, #-36]
+ 1268              	.L120:
+ 1269 0d20 24301BE5 		ldr	r3, [fp, #-36]
+ 1270              	.LM127:
+ 1271 0d24 0300A0E1 		mov	r0, r3
+ 1272 0d28 0CD04BE2 		sub	sp, fp, #12
+ 1273 0d2c 00689DE8 		ldmfd	sp, {fp, sp, lr}
+ 1274 0d30 1EFF2FE1 		bx	lr
+ 1275              	.L133:
+ 1276              		.align	2
+ 1277              	.L132:
+ 1278 0d34 00000000 		.word	jetiValues
+ 1279              	.LFE14:
+ 1281              		.align	2
+ 1282              		.global	jetiSetTextDisplay
+ 1284              	jetiSetTextDisplay:
+ 1285              	.LFB15:
+ 1286              	.LM128:
+ 1287              		@ Function supports interworking.
+ 1288              		@ args = 0, pretend = 0, frame = 12
+ 1289              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1290 0d38 0DC0A0E1 		mov	ip, sp
+ 1291              	.LCFI52:
+ 1292 0d3c 00D82DE9 		stmfd	sp!, {fp, ip, lr, pc}
+ 1293              	.LCFI53:
+ 1294 0d40 04B04CE2 		sub	fp, ip, #4
+ 1295              	.LCFI54:
+ 1296 0d44 0CD04DE2 		sub	sp, sp, #12
+ 1297              	.LCFI55:
+ 1298 0d48 18000BE5 		str	r0, [fp, #-24]
+ 1299              	.LM129:
+ 1300 0d4c 0030A0E3 		mov	r3, #0
+ 1301 0d50 13304BE5 		strb	r3, [fp, #-19]
+ 1302              	.LM130:
+ 1303 0d54 0030A0E3 		mov	r3, #0
+ 1304 0d58 12304BE5 		strb	r3, [fp, #-18]
+ 1305              	.LM131:
+ 1306 0d5c 0030A0E3 		mov	r3, #0
+ 1307 0d60 11304BE5 		strb	r3, [fp, #-17]
+ 1308              	.LM132:
+ 1309 0d64 0030A0E3 		mov	r3, #0
+ 1310 0d68 10300BE5 		str	r3, [fp, #-16]
+ 1311 0d6c 150000EA 		b	.L135
+ 1312              	.L136:
+ 1313              	.LM133:
+ 1314 0d70 10301BE5 		ldr	r3, [fp, #-16]
+ 1315 0d74 0320A0E1 		mov	r2, r3
+ 1316 0d78 18301BE5 		ldr	r3, [fp, #-24]
+ 1317 0d7c 033082E0 		add	r3, r2, r3
+ 1318 0d80 0010D3E5 		ldrb	r1, [r3, #0]	@ zero_extendqisi2
+ 1319 0d84 10201BE5 		ldr	r2, [fp, #-16]
+ 1320 0d88 EC309FE5 		ldr	r3, .L150
+ 1321 0d8c 0230D3E7 		ldrb	r3, [r3, r2]	@ zero_extendqisi2
+ 1322 0d90 030051E1 		cmp	r1, r3
+ 1323 0d94 0100000A 		beq	.L137
+ 1324              	.LM134:
+ 1325 0d98 0130A0E3 		mov	r3, #1
+ 1326 0d9c 11304BE5 		strb	r3, [fp, #-17]
+ 1327              	.L137:
+ 1328              	.LM135:
+ 1329 0da0 10301BE5 		ldr	r3, [fp, #-16]
+ 1330 0da4 0320A0E1 		mov	r2, r3
+ 1331 0da8 18301BE5 		ldr	r3, [fp, #-24]
+ 1332 0dac 033082E0 		add	r3, r2, r3
+ 1333 0db0 0030D3E5 		ldrb	r3, [r3, #0]	@ zero_extendqisi2
+ 1334 0db4 000053E3 		cmp	r3, #0
+ 1335 0db8 0500000A 		beq	.L139
+ 1336              	.LM136:
+ 1337 0dbc 10301BE5 		ldr	r3, [fp, #-16]
+ 1338 0dc0 013083E2 		add	r3, r3, #1
+ 1339 0dc4 10300BE5 		str	r3, [fp, #-16]
+ 1340              	.L135:
+ 1341 0dc8 10301BE5 		ldr	r3, [fp, #-16]
+ 1342 0dcc 200053E3 		cmp	r3, #32
+ 1343 0dd0 E6FFFFDA 		ble	.L136
+ 1344              	.L139:
+ 1345              	.LM137:
+ 1346 0dd4 10301BE5 		ldr	r3, [fp, #-16]
+ 1347 0dd8 200053E3 		cmp	r3, #32
+ 1348 0ddc 0100001A 		bne	.L141
+ 1349              	.LM138:
+ 1350 0de0 1630A0E3 		mov	r3, #22
+ 1351 0de4 12304BE5 		strb	r3, [fp, #-18]
+ 1352              	.L141:
+ 1353              	.LM139:
+ 1354 0de8 10301BE5 		ldr	r3, [fp, #-16]
+ 1355 0dec 13304BE5 		strb	r3, [fp, #-19]
+ 1356              	.LM140:
+ 1357 0df0 13105BE5 		ldrb	r1, [fp, #-19]	@ zero_extendqisi2
+ 1358 0df4 80309FE5 		ldr	r3, .L150
+ 1359 0df8 18201BE5 		ldr	r2, [fp, #-24]
+ 1360 0dfc 01C0A0E1 		mov	ip, r1
+ 1361 0e00 0300A0E1 		mov	r0, r3
+ 1362 0e04 0210A0E1 		mov	r1, r2
+ 1363 0e08 0C20A0E1 		mov	r2, ip
+ 1364 0e0c FEFFFFEB 		bl	memcpy
+ 1365              	.LM141:
+ 1366 0e10 13305BE5 		ldrb	r3, [fp, #-19]	@ zero_extendqisi2
+ 1367 0e14 1F0053E3 		cmp	r3, #31
+ 1368 0e18 0C00008A 		bhi	.L143
+ 1369              	.LM142:
+ 1370 0e1c 13305BE5 		ldrb	r3, [fp, #-19]	@ zero_extendqisi2
+ 1371 0e20 10300BE5 		str	r3, [fp, #-16]
+ 1372 0e24 060000EA 		b	.L145
+ 1373              	.L146:
+ 1374              	.LM143:
+ 1375 0e28 10101BE5 		ldr	r1, [fp, #-16]
+ 1376 0e2c 48209FE5 		ldr	r2, .L150
+ 1377 0e30 0030A0E3 		mov	r3, #0
+ 1378 0e34 0130C2E7 		strb	r3, [r2, r1]
+ 1379              	.LM144:
+ 1380 0e38 10301BE5 		ldr	r3, [fp, #-16]
+ 1381 0e3c 013083E2 		add	r3, r3, #1
+ 1382 0e40 10300BE5 		str	r3, [fp, #-16]
+ 1383              	.L145:
+ 1384 0e44 10301BE5 		ldr	r3, [fp, #-16]
+ 1385 0e48 1F0053E3 		cmp	r3, #31
+ 1386 0e4c F5FFFFDA 		ble	.L146
+ 1387              	.L143:
+ 1388              	.LM145:
+ 1389 0e50 11305BE5 		ldrb	r3, [fp, #-17]	@ zero_extendqisi2
+ 1390 0e54 000053E3 		cmp	r3, #0
+ 1391 0e58 0200000A 		beq	.L147
+ 1392              	.LM146:
+ 1393 0e5c 1C309FE5 		ldr	r3, .L150+4
+ 1394 0e60 0120A0E3 		mov	r2, #1
+ 1395 0e64 0020C3E5 		strb	r2, [r3, #0]
+ 1396              	.L147:
+ 1397              	.LM147:
+ 1398 0e68 12305BE5 		ldrb	r3, [fp, #-18]	@ zero_extendqisi2
+ 1399              	.LM148:
+ 1400 0e6c 0300A0E1 		mov	r0, r3
+ 1401 0e70 0CD04BE2 		sub	sp, fp, #12
+ 1402 0e74 00689DE8 		ldmfd	sp, {fp, sp, lr}
+ 1403 0e78 1EFF2FE1 		bx	lr
+ 1404              	.L151:
+ 1405              		.align	2
+ 1406              	.L150:
+ 1407 0e7c 00000000 		.word	jetiDisplayText
+ 1408 0e80 00000000 		.word	jetiTriggerTextSync
+ 1409              	.LFE15:
+ 1411              		.align	2
+ 1412              		.global	jetiInitValue
+ 1414              	jetiInitValue:
+ 1415              	.LFB16:
+ 1416              	.LM149:
+ 1417              		@ Function supports interworking.
+ 1418              		@ args = 0, pretend = 0, frame = 24
+ 1419              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1420 0e84 0DC0A0E1 		mov	ip, sp
+ 1421              	.LCFI56:
+ 1422 0e88 00D82DE9 		stmfd	sp!, {fp, ip, lr, pc}
+ 1423              	.LCFI57:
+ 1424 0e8c 04B04CE2 		sub	fp, ip, #4
+ 1425              	.LCFI58:
+ 1426 0e90 18D04DE2 		sub	sp, sp, #24
+ 1427              	.LCFI59:
+ 1428 0e94 0030A0E1 		mov	r3, r0
+ 1429 0e98 1C100BE5 		str	r1, [fp, #-28]
+ 1430 0e9c 20200BE5 		str	r2, [fp, #-32]
+ 1431 0ea0 18304BE5 		strb	r3, [fp, #-24]
+ 1432              	.LM150:
+ 1433 0ea4 0030A0E3 		mov	r3, #0
+ 1434 0ea8 13304BE5 		strb	r3, [fp, #-19]
+ 1435              	.LM151:
+ 1436 0eac 0030A0E3 		mov	r3, #0
+ 1437 0eb0 12304BE5 		strb	r3, [fp, #-18]
+ 1438              	.LM152:
+ 1439 0eb4 0030A0E3 		mov	r3, #0
+ 1440 0eb8 11304BE5 		strb	r3, [fp, #-17]
+ 1441              	.LM153:
+ 1442 0ebc 18305BE5 		ldrb	r3, [fp, #-24]	@ zero_extendqisi2
+ 1443 0ec0 0E0053E3 		cmp	r3, #14
+ 1444 0ec4 0200009A 		bls	.L153
+ 1445              	.LM154:
+ 1446 0ec8 0130A0E3 		mov	r3, #1
+ 1447 0ecc 24300BE5 		str	r3, [fp, #-36]
+ 1448 0ed0 680000EA 		b	.L155
+ 1449              	.L153:
+ 1450              	.LM155:
+ 1451 0ed4 0030A0E3 		mov	r3, #0
+ 1452 0ed8 10300BE5 		str	r3, [fp, #-16]
+ 1453 0edc 090000EA 		b	.L156
+ 1454              	.L157:
+ 1455              	.LM156:
+ 1456 0ee0 10301BE5 		ldr	r3, [fp, #-16]
+ 1457 0ee4 0320A0E1 		mov	r2, r3
+ 1458 0ee8 1C301BE5 		ldr	r3, [fp, #-28]
+ 1459 0eec 033082E0 		add	r3, r2, r3
+ 1460 0ef0 0030D3E5 		ldrb	r3, [r3, #0]	@ zero_extendqisi2
+ 1461 0ef4 000053E3 		cmp	r3, #0
+ 1462 0ef8 0500000A 		beq	.L158
+ 1463              	.LM157:
+ 1464 0efc 10301BE5 		ldr	r3, [fp, #-16]
+ 1465 0f00 013083E2 		add	r3, r3, #1
+ 1466 0f04 10300BE5 		str	r3, [fp, #-16]
+ 1467              	.L156:
+ 1468 0f08 10301BE5 		ldr	r3, [fp, #-16]
+ 1469 0f0c 0A0053E3 		cmp	r3, #10
+ 1470 0f10 F2FFFFDA 		ble	.L157
+ 1471              	.L158:
+ 1472              	.LM158:
+ 1473 0f14 10301BE5 		ldr	r3, [fp, #-16]
+ 1474 0f18 0A0053E3 		cmp	r3, #10
+ 1475 0f1c 0100001A 		bne	.L160
+ 1476              	.LM159:
+ 1477 0f20 1430A0E3 		mov	r3, #20
+ 1478 0f24 11304BE5 		strb	r3, [fp, #-17]
+ 1479              	.L160:
+ 1480              	.LM160:
+ 1481 0f28 10301BE5 		ldr	r3, [fp, #-16]
+ 1482 0f2c 13304BE5 		strb	r3, [fp, #-19]
+ 1483              	.LM161:
+ 1484 0f30 0030A0E3 		mov	r3, #0
+ 1485 0f34 10300BE5 		str	r3, [fp, #-16]
+ 1486 0f38 090000EA 		b	.L162
+ 1487              	.L163:
+ 1488              	.LM162:
+ 1489 0f3c 10301BE5 		ldr	r3, [fp, #-16]
+ 1490 0f40 0320A0E1 		mov	r2, r3
+ 1491 0f44 20301BE5 		ldr	r3, [fp, #-32]
+ 1492 0f48 033082E0 		add	r3, r2, r3
+ 1493 0f4c 0030D3E5 		ldrb	r3, [r3, #0]	@ zero_extendqisi2
+ 1494 0f50 000053E3 		cmp	r3, #0
+ 1495 0f54 0500000A 		beq	.L164
+ 1496              	.LM163:
+ 1497 0f58 10301BE5 		ldr	r3, [fp, #-16]
+ 1498 0f5c 013083E2 		add	r3, r3, #1
+ 1499 0f60 10300BE5 		str	r3, [fp, #-16]
+ 1500              	.L162:
+ 1501 0f64 10301BE5 		ldr	r3, [fp, #-16]
+ 1502 0f68 050053E3 		cmp	r3, #5
+ 1503 0f6c F2FFFFDA 		ble	.L163
+ 1504              	.L164:
+ 1505              	.LM164:
+ 1506 0f70 10301BE5 		ldr	r3, [fp, #-16]
+ 1507 0f74 050053E3 		cmp	r3, #5
+ 1508 0f78 0100001A 		bne	.L166
+ 1509              	.LM165:
+ 1510 0f7c 1530A0E3 		mov	r3, #21
+ 1511 0f80 11304BE5 		strb	r3, [fp, #-17]
+ 1512              	.L166:
+ 1513              	.LM166:
+ 1514 0f84 10301BE5 		ldr	r3, [fp, #-16]
+ 1515 0f88 12304BE5 		strb	r3, [fp, #-18]
+ 1516              	.LM167:
+ 1517 0f8c 18205BE5 		ldrb	r2, [fp, #-24]	@ zero_extendqisi2
+ 1518 0f90 18305BE5 		ldrb	r3, [fp, #-24]
+ 1519 0f94 013083E2 		add	r3, r3, #1
+ 1520 0f98 FF1003E2 		and	r1, r3, #255
+ 1521 0f9c E8009FE5 		ldr	r0, .L169
+ 1522 0fa0 0230A0E1 		mov	r3, r2
+ 1523 0fa4 0331A0E1 		mov	r3, r3, asl #2
+ 1524 0fa8 023083E0 		add	r3, r3, r2
+ 1525 0fac 8330A0E1 		mov	r3, r3, asl #1
+ 1526 0fb0 023083E0 		add	r3, r3, r2
+ 1527 0fb4 8330A0E1 		mov	r3, r3, asl #1
+ 1528 0fb8 002083E0 		add	r2, r3, r0
+ 1529 0fbc 0130A0E1 		mov	r3, r1
+ 1530 0fc0 0030C2E5 		strb	r3, [r2, #0]
+ 1531              	.LM168:
+ 1532 0fc4 18205BE5 		ldrb	r2, [fp, #-24]	@ zero_extendqisi2
+ 1533 0fc8 0230A0E1 		mov	r3, r2
+ 1534 0fcc 0331A0E1 		mov	r3, r3, asl #2
+ 1535 0fd0 023083E0 		add	r3, r3, r2
+ 1536 0fd4 8330A0E1 		mov	r3, r3, asl #1
+ 1537 0fd8 023083E0 		add	r3, r3, r2
+ 1538 0fdc 8320A0E1 		mov	r2, r3, asl #1
+ 1539 0fe0 A4309FE5 		ldr	r3, .L169
+ 1540 0fe4 033082E0 		add	r3, r2, r3
+ 1541 0fe8 012083E2 		add	r2, r3, #1
+ 1542 0fec 13105BE5 		ldrb	r1, [fp, #-19]	@ zero_extendqisi2
+ 1543 0ff0 1C301BE5 		ldr	r3, [fp, #-28]
+ 1544 0ff4 01C0A0E1 		mov	ip, r1
+ 1545 0ff8 0200A0E1 		mov	r0, r2
+ 1546 0ffc 0310A0E1 		mov	r1, r3
+ 1547 1000 0C20A0E1 		mov	r2, ip
+ 1548 1004 FEFFFFEB 		bl	memcpy
+ 1549              	.LM169:
+ 1550 1008 18205BE5 		ldrb	r2, [fp, #-24]	@ zero_extendqisi2
+ 1551 100c 0230A0E1 		mov	r3, r2
+ 1552 1010 0331A0E1 		mov	r3, r3, asl #2
+ 1553 1014 023083E0 		add	r3, r3, r2
+ 1554 1018 8330A0E1 		mov	r3, r3, asl #1
+ 1555 101c 023083E0 		add	r3, r3, r2
+ 1556 1020 8330A0E1 		mov	r3, r3, asl #1
+ 1557 1024 082083E2 		add	r2, r3, #8
+ 1558 1028 5C309FE5 		ldr	r3, .L169
+ 1559 102c 033082E0 		add	r3, r2, r3
+ 1560 1030 032083E2 		add	r2, r3, #3
+ 1561 1034 12105BE5 		ldrb	r1, [fp, #-18]	@ zero_extendqisi2
+ 1562 1038 20301BE5 		ldr	r3, [fp, #-32]
+ 1563 103c 01C0A0E1 		mov	ip, r1
+ 1564 1040 0200A0E1 		mov	r0, r2
+ 1565 1044 0310A0E1 		mov	r1, r3
+ 1566 1048 0C20A0E1 		mov	r2, ip
+ 1567 104c FEFFFFEB 		bl	memcpy
+ 1568              	.LM170:
+ 1569 1050 18305BE5 		ldrb	r3, [fp, #-24]	@ zero_extendqisi2
+ 1570 1054 0300A0E1 		mov	r0, r3
+ 1571 1058 0010A0E3 		mov	r1, #0
+ 1572 105c FEFFFFEB 		bl	jetiSetValue6B
+ 1573              	.LM171:
+ 1574 1060 18305BE5 		ldrb	r3, [fp, #-24]	@ zero_extendqisi2
+ 1575 1064 0300A0E1 		mov	r0, r3
+ 1576 1068 0010A0E3 		mov	r1, #0
+ 1577 106c FEFFFFEB 		bl	jetiSetDecimalPoint
+ 1578              	.LM172:
+ 1579 1070 11305BE5 		ldrb	r3, [fp, #-17]	@ zero_extendqisi2
+ 1580 1074 24300BE5 		str	r3, [fp, #-36]
+ 1581              	.L155:
+ 1582 1078 24301BE5 		ldr	r3, [fp, #-36]
+ 1583              	.LM173:
+ 1584 107c 0300A0E1 		mov	r0, r3
+ 1585 1080 0CD04BE2 		sub	sp, fp, #12
+ 1586 1084 00689DE8 		ldmfd	sp, {fp, sp, lr}
+ 1587 1088 1EFF2FE1 		bx	lr
+ 1588              	.L170:
+ 1589              		.align	2
+ 1590              	.L169:
+ 1591 108c 00000000 		.word	jetiValues
+ 1592              	.LFE16:
+ 1594              		.comm	jetiName,10,1
+ 1595              		.comm	jetiValues,330,1
+ 1596              		.comm	jetiDisplayText,32,1
+ 1988              	.Letext0:
+DEFINED SYMBOLS
+                            *ABS*:00000000 jetiTelemetry.c
+     /tmp/ccX4XjAw.s:14     .bss:00000000 jetiAlarm
+     /tmp/ccX4XjAw.s:15     .bss:00000000 $d
+     /tmp/ccX4XjAw.s:19     .bss:00000001 jetiAlarmType
+     /tmp/ccX4XjAw.s:24     .bss:00000002 jetiTriggerTextSync
+     /tmp/ccX4XjAw.s:29     .bss:00000003 jetiKeyChanged
+     /tmp/ccX4XjAw.s:34     .bss:00000004 jetiKey
+     /tmp/ccX4XjAw.s:37     .text:00000000 $a
+     /tmp/ccX4XjAw.s:40     .text:00000000 jetiSetKeyChanged
+     /tmp/ccX4XjAw.s:71     .text:0000003c $d
+     /tmp/ccX4XjAw.s:75     .text:00000044 $a
+     /tmp/ccX4XjAw.s:78     .text:00000044 jetiCheckForKeyChange
+     /tmp/ccX4XjAw.s:120    .text:0000009c $d
+     /tmp/ccX4XjAw.s:124    .text:000000a4 $a
+     /tmp/ccX4XjAw.s:127    .text:000000a4 jetiSetAlarm
+     /tmp/ccX4XjAw.s:191    .text:00000140 $d
+     /tmp/ccX4XjAw.s:195    .text:00000148 $a
+     /tmp/ccX4XjAw.s:198    .text:00000148 jetiSetDeviceName
+     /tmp/ccX4XjAw.s:271    .text:000001fc $d
+                            *COM*:0000000a jetiName
+     /tmp/ccX4XjAw.s:274    .text:00000200 $a
+     /tmp/ccX4XjAw.s:277    .text:00000200 jetiActivateValue
+     /tmp/ccX4XjAw.s:330    .text:00000284 $d
+                            *COM*:0000014a jetiValues
+     /tmp/ccX4XjAw.s:333    .text:00000288 $a
+     /tmp/ccX4XjAw.s:336    .text:00000288 jetiDeactivateValue
+     /tmp/ccX4XjAw.s:386    .text:00000300 $d
+     /tmp/ccX4XjAw.s:389    .text:00000304 $a
+     /tmp/ccX4XjAw.s:392    .text:00000304 jetiSetDecimalPoint
+     /tmp/ccX4XjAw.s:456    .text:000003a8 $d
+     /tmp/ccX4XjAw.s:459    .text:000003ac $a
+     /tmp/ccX4XjAw.s:462    .text:000003ac jetiSetValue30B
+     /tmp/ccX4XjAw.s:580    .text:00000518 $d
+     /tmp/ccX4XjAw.s:583    .text:0000051c $a
+     /tmp/ccX4XjAw.s:586    .text:0000051c jetiSetValue22B
+     /tmp/ccX4XjAw.s:706    .text:00000690 $d
+     /tmp/ccX4XjAw.s:709    .text:00000694 $a
+     /tmp/ccX4XjAw.s:712    .text:00000694 jetiSetValue6B
+     /tmp/ccX4XjAw.s:830    .text:00000800 $d
+     /tmp/ccX4XjAw.s:833    .text:00000804 $a
+     /tmp/ccX4XjAw.s:836    .text:00000804 jetiSetValue14B
+     /tmp/ccX4XjAw.s:956    .text:00000978 $d
+     /tmp/ccX4XjAw.s:959    .text:0000097c $a
+     /tmp/ccX4XjAw.s:962    .text:0000097c jetiSetValueTime
+     /tmp/ccX4XjAw.s:1109   .text:00000b40 $d
+     /tmp/ccX4XjAw.s:1112   .text:00000b44 $a
+     /tmp/ccX4XjAw.s:1115   .text:00000b44 jetiSetValueDate
+     /tmp/ccX4XjAw.s:1278   .text:00000d34 $d
+     /tmp/ccX4XjAw.s:1281   .text:00000d38 $a
+     /tmp/ccX4XjAw.s:1284   .text:00000d38 jetiSetTextDisplay
+     /tmp/ccX4XjAw.s:1407   .text:00000e7c $d
+                            *COM*:00000020 jetiDisplayText
+     /tmp/ccX4XjAw.s:1411   .text:00000e84 $a
+     /tmp/ccX4XjAw.s:1414   .text:00000e84 jetiInitValue
+     /tmp/ccX4XjAw.s:1591   .text:0000108c $d
+     /tmp/ccX4XjAw.s:1610   .debug_frame:00000010 $d
+
+UNDEFINED SYMBOLS
+memcpy

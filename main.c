@@ -421,9 +421,9 @@ void ACISDK(void)
 	aciPublishCommand(&WO_DESIRED_Input.pitch_angle, VARTYPE_INT16, 0x0F01, "DESIRED pitch", "Pitch input (DESIRED)", "-31415..+31415 = -1.57.. +1.57 (0=neutral)");
 	aciPublishCommand(&WO_DESIRED_Input.yaw_angle, VARTYPE_INT16, 0x0F02, "DESIRED yaw", "Yaw input (DESIRED)", "-31415..+31415 = -1.57.. +1.57 (0=neutral)");
 
-	aciPublishCommand(&WO_DESIRED_Input.roll_vel, VARTYPE_INT16, 0x0F03, "DESIRED roll velocity", "Roll input (DESIRED)", "-31415..+31415 = -1.57.. +1.57 (0=neutral)");
-	aciPublishCommand(&WO_DESIRED_Input.pitch_vel, VARTYPE_INT16, 0x0F04, "DESIRED pitch velocity", "Pitch input (DESIRED)", "-31415..+31415 = -1.57.. +1.57 (0=neutral)");
-	aciPublishCommand(&WO_DESIRED_Input.yaw_vel, VARTYPE_INT16, 0x0F05, "DESIRED yaw velocity", "Yaw input (DESIRED)", "-31415..+31415 = -1.57.. +1.57 (0=neutral)");
+	aciPublishCommand(&WO_DESIRED_Input.roll_vel, VARTYPE_INT16, 0x0F03, "DESIRED roll velocity", "Roll rate input (DESIRED)", "-31415..+31415 = -3.14.. +3.14 (0=neutral)");
+	aciPublishCommand(&WO_DESIRED_Input.pitch_vel, VARTYPE_INT16, 0x0F04, "DESIRED pitch velocity", "Pitch rate input (DESIRED)", "-31415..+31415 = -3.14.. +3.14 (0=neutral)");
+	aciPublishCommand(&WO_DESIRED_Input.yaw_vel, VARTYPE_INT16, 0x0F05, "DESIRED yaw velocity", "Yaw input (DESIRED)", "-31415..+31415 = -3.14.. +3.14 (0=neutral)");
 	
 	aciPublishCommand(&WO_DESIRED_Input.accel_z, VARTYPE_INT16, 0x0F06, "DESIRED accleration along z (body)", "accleration input", "-30000..+30000 = -3g .. +3g (0 = neutral)");
 	
